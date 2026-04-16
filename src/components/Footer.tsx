@@ -35,7 +35,7 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border" style={{ background: "oklch(0.06 0 0)" }}>
+    <footer className="border-t border-border" style={{ background: "oklch(0.96 0.003 260)" }}>
       <div className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid gap-12 md:grid-cols-4">
           <div className="md:col-span-1">

@@ -27,8 +27,8 @@ function PricingToggle({ isAnnual, onToggle }: { isAnnual: boolean; onToggle: ()
         className="relative h-8 w-16 rounded-full transition-colors"
         style={{
           background: isAnnual
-            ? "linear-gradient(135deg, oklch(0.78 0.08 65), oklch(0.7 0.1 55))"
-            : "oklch(0.3 0 0)",
+            ? "linear-gradient(135deg, oklch(0.5 0.13 55), oklch(0.45 0.14 50))"
+            : "oklch(0.88 0 0)",
         }}
       >
         <motion.div
