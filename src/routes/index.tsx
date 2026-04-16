@@ -53,11 +53,11 @@ function HomePage() {
       <section className="relative overflow-hidden px-6 pb-20 pt-16 md:pb-32 md:pt-24">
         <div className="absolute inset-0 overflow-hidden">
           <div
-            className="absolute -top-40 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full opacity-20 blur-[120px]"
+            className="absolute -top-40 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full opacity-30 blur-[120px]"
             style={{ background: "radial-gradient(circle, oklch(0.78 0.08 65), transparent 70%)" }}
           />
           <div
-            className="absolute -bottom-20 right-0 h-[400px] w-[400px] rounded-full opacity-10 blur-[100px]"
+            className="absolute -bottom-20 right-0 h-[400px] w-[400px] rounded-full opacity-15 blur-[100px]"
             style={{ background: "radial-gradient(circle, oklch(0.75 0.08 210), transparent 70%)" }}
           />
         </div>

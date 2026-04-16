@@ -65,45 +65,45 @@
 
 :root {
   --radius: 0.75rem;
-  --background: oklch(0.05 0 0);
-  --foreground: oklch(0.98 0 0);
-  --card: oklch(0.12 0.005 260);
-  --card-foreground: oklch(0.98 0 0);
-  --popover: oklch(0.12 0.005 260);
-  --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.78 0.08 65);
-  --primary-foreground: oklch(0.1 0 0);
-  --secondary: oklch(0.75 0.08 210);
-  --secondary-foreground: oklch(0.1 0 0);
-  --muted: oklch(0.2 0.005 260);
-  --muted-foreground: oklch(0.65 0 0);
-  --accent: oklch(0.78 0.08 65);
-  --accent-foreground: oklch(0.1 0 0);
+  --background: oklch(0.985 0 0);
+  --foreground: oklch(0.12 0.02 260);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.12 0.02 260);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.12 0.02 260);
+  --primary: oklch(0.55 0.12 55);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.55 0.1 210);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.955 0.005 260);
+  --muted-foreground: oklch(0.45 0.02 260);
+  --accent: oklch(0.55 0.12 55);
+  --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(1 0 0 / 8%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.78 0.08 65);
-  --gold: oklch(0.78 0.08 65);
-  --gold-foreground: oklch(0.1 0 0);
-  --ice: oklch(0.75 0.08 210);
-  --ice-foreground: oklch(0.1 0 0);
-  --glass: oklch(1 0 0 / 5%);
-  --glass-border: oklch(1 0 0 / 10%);
-  --surface: oklch(0.1 0.005 260);
-  --chart-1: oklch(0.78 0.08 65);
-  --chart-2: oklch(0.75 0.08 210);
-  --chart-3: oklch(0.6 0.15 300);
-  --chart-4: oklch(0.7 0.1 150);
-  --chart-5: oklch(0.65 0.15 30);
-  --sidebar: oklch(0.08 0 0);
-  --sidebar-foreground: oklch(0.98 0 0);
-  --sidebar-primary: oklch(0.78 0.08 65);
-  --sidebar-primary-foreground: oklch(0.1 0 0);
-  --sidebar-accent: oklch(0.15 0.005 260);
-  --sidebar-accent-foreground: oklch(0.98 0 0);
-  --sidebar-border: oklch(1 0 0 / 8%);
-  --sidebar-ring: oklch(0.78 0.08 65);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0 0 0 / 8%);
+  --input: oklch(0 0 0 / 6%);
+  --ring: oklch(0.55 0.12 55);
+  --gold: oklch(0.55 0.12 55);
+  --gold-foreground: oklch(1 0 0);
+  --ice: oklch(0.55 0.1 210);
+  --ice-foreground: oklch(1 0 0);
+  --glass: oklch(1 0 0 / 70%);
+  --glass-border: oklch(0 0 0 / 8%);
+  --surface: oklch(0.965 0.003 260);
+  --chart-1: oklch(0.55 0.12 55);
+  --chart-2: oklch(0.55 0.1 210);
+  --chart-3: oklch(0.5 0.15 300);
+  --chart-4: oklch(0.6 0.1 150);
+  --chart-5: oklch(0.55 0.15 30);
+  --sidebar: oklch(0.975 0.003 260);
+  --sidebar-foreground: oklch(0.12 0.02 260);
+  --sidebar-primary: oklch(0.55 0.12 55);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.955 0.005 260);
+  --sidebar-accent-foreground: oklch(0.12 0.02 260);
+  --sidebar-border: oklch(0 0 0 / 8%);
+  --sidebar-ring: oklch(0.55 0.12 55);
 }
 
 @layer base {
@@ -143,29 +143,29 @@
     transition: all 0.3s ease;
   }
   .glass-card-hover:hover {
-    background: oklch(1 0 0 / 8%);
-    border-color: oklch(1 0 0 / 15%);
+    background: oklch(0 0 0 / 3%);
+    border-color: oklch(0 0 0 / 12%);
     transform: translateY(-4px);
-    box-shadow: 0 20px 60px -15px oklch(0.78 0.08 65 / 15%);
+    box-shadow: 0 20px 60px -15px oklch(0.5 0.13 55 / 12%);
   }
 
   .gold-gradient-text {
-    background: linear-gradient(135deg, oklch(0.78 0.08 65), oklch(0.85 0.06 75));
+    background: linear-gradient(135deg, oklch(0.5 0.13 55), oklch(0.6 0.1 65));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .ice-gradient-text {
-    background: linear-gradient(135deg, oklch(0.75 0.08 210), oklch(0.82 0.06 220));
+    background: linear-gradient(135deg, oklch(0.45 0.12 210), oklch(0.55 0.1 220));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .btn-gold {
-    background: linear-gradient(135deg, oklch(0.78 0.08 65), oklch(0.7 0.1 55));
-    color: oklch(0.05 0 0);
+    background: linear-gradient(135deg, oklch(0.5 0.13 55), oklch(0.45 0.14 50));
+    color: oklch(1 0 0);
     font-weight: 600;
     border-radius: var(--radius-xl);
     padding: 0.75rem 2rem;
@@ -175,22 +175,22 @@
   }
   .btn-gold:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 40px -10px oklch(0.78 0.08 65 / 50%);
+    box-shadow: 0 10px 40px -10px oklch(0.5 0.13 55 / 50%);
   }
 
   .btn-outline-gold {
     background: transparent;
-    color: oklch(0.78 0.08 65);
+    color: oklch(0.5 0.13 55);
     font-weight: 600;
     border-radius: var(--radius-xl);
     padding: 0.75rem 2rem;
     transition: all 0.3s ease;
-    border: 1px solid oklch(0.78 0.08 65 / 40%);
+    border: 1px solid oklch(0.5 0.13 55 / 40%);
     cursor: pointer;
   }
   .btn-outline-gold:hover {
-    background: oklch(0.78 0.08 65 / 10%);
-    border-color: oklch(0.78 0.08 65);
+    background: oklch(0.5 0.13 55 / 10%);
+    border-color: oklch(0.5 0.13 55);
     transform: translateY(-2px);
   }
 
@@ -199,17 +199,17 @@
   }
 
   .glow-gold {
-    box-shadow: 0 0 80px -20px oklch(0.78 0.08 65 / 25%);
+    box-shadow: 0 0 80px -20px oklch(0.5 0.13 55 / 15%);
   }
 
   .glow-ice {
-    box-shadow: 0 0 80px -20px oklch(0.75 0.08 210 / 25%);
+    box-shadow: 0 0 80px -20px oklch(0.55 0.1 210 / 15%);
   }
 
   .badge-gold {
-    background: oklch(0.78 0.08 65 / 15%);
-    color: oklch(0.78 0.08 65);
-    border: 1px solid oklch(0.78 0.08 65 / 20%);
+    background: oklch(0.5 0.13 55 / 10%);
+    color: oklch(0.5 0.13 55);
+    border: 1px solid oklch(0.5 0.13 55 / 15%);
     border-radius: 9999px;
     padding: 0.25rem 1rem;
     font-size: 0.75rem;
@@ -219,9 +219,9 @@
   }
 
   .badge-ice {
-    background: oklch(0.75 0.08 210 / 15%);
-    color: oklch(0.75 0.08 210);
-    border: 1px solid oklch(0.75 0.08 210 / 20%);
+    background: oklch(0.55 0.1 210 / 10%);
+    color: oklch(0.45 0.12 210);
+    border: 1px solid oklch(0.55 0.1 210 / 15%);
     border-radius: 9999px;
     padding: 0.25rem 1rem;
     font-size: 0.75rem;
@@ -242,6 +242,6 @@
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px oklch(0.78 0.08 65 / 20%); }
-  50% { box-shadow: 0 0 40px oklch(0.78 0.08 65 / 40%); }
+  0%, 100% { box-shadow: 0 0 20px oklch(0.5 0.13 55 / 15%); }
+  50% { box-shadow: 0 0 40px oklch(0.5 0.13 55 / 30%); }
 }
