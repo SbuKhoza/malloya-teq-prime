@@ -1,10 +1,14 @@
 export interface Package {
   id: string;
   name: string;
-  category: "static" | "dynamic" | "store" | "app";
+  category: "static" | "store" | "app";
   monthlyPrice: number | null;
   annualPrice: number | null;
+  /** Optional CMS upgrade pricing — when set, the card shows a "with CMS" toggle. */
+  cmsMonthlyAddon?: number;
+  cmsAnnualAddon?: number;
   features: string[];
+  cmsFeatures?: string[];
   popular?: boolean;
   cta?: string;
 }
@@ -16,6 +20,8 @@ export const websitePackages: Package[] = [
     category: "static",
     monthlyPrice: 399,
     annualPrice: 3999,
+    cmsMonthlyAddon: 200,
+    cmsAnnualAddon: 2000,
     features: [
       "Up to 5 pages",
       "Mobile responsive",
@@ -23,6 +29,7 @@ export const websitePackages: Package[] = [
       "Contact form",
       "1 revision round",
     ],
+    cmsFeatures: ["Content Management System", "Admin dashboard", "Easy content updates"],
   },
   {
     id: "business-static",
@@ -30,6 +37,8 @@ export const websitePackages: Package[] = [
     category: "static",
     monthlyPrice: 599,
     annualPrice: 5999,
+    cmsMonthlyAddon: 250,
+    cmsAnnualAddon: 2500,
     features: [
       "Up to 10 pages",
       "Mobile responsive",
@@ -38,6 +47,7 @@ export const websitePackages: Package[] = [
       "Social media integration",
       "2 revision rounds",
     ],
+    cmsFeatures: ["Content Management System", "Blog integration", "Multi-user admin access"],
     popular: true,
   },
   {
@@ -46,6 +56,8 @@ export const websitePackages: Package[] = [
     category: "static",
     monthlyPrice: 899,
     annualPrice: 8999,
+    cmsMonthlyAddon: 400,
+    cmsAnnualAddon: 4000,
     features: [
       "Unlimited pages",
       "Premium animations",
@@ -54,38 +66,7 @@ export const websitePackages: Package[] = [
       "Priority support",
       "3 revision rounds",
     ],
-  },
-  {
-    id: "cms-business",
-    name: "CMS Business",
-    category: "dynamic",
-    monthlyPrice: 799,
-    annualPrice: 7999,
-    features: [
-      "Content Management System",
-      "Blog integration",
-      "Up to 15 pages",
-      "SEO optimized",
-      "Admin dashboard",
-      "2 revision rounds",
-    ],
-  },
-  {
-    id: "cms-pro",
-    name: "CMS Pro",
-    category: "dynamic",
-    monthlyPrice: 1299,
-    annualPrice: 12999,
-    features: [
-      "Advanced CMS",
-      "Multi-user access",
-      "Unlimited pages",
-      "Custom plugins",
-      "API integration",
-      "Priority support",
-      "3 revision rounds",
-    ],
-    popular: true,
+    cmsFeatures: ["Advanced CMS", "Custom plugins", "API integration", "Multi-user access"],
   },
   {
     id: "store-starter",

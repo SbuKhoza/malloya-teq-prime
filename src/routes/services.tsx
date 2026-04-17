@@ -25,7 +25,6 @@ export const Route = createFileRoute("/services")({
 const serviceCategories = [
   {
     title: "Website Development",
-    icon: "🌐",
     desc: "From simple landing pages to complex e-commerce platforms.",
     services: [
       { name: "Static Websites", desc: "Fast, lightweight sites for businesses that need a professional web presence." },
@@ -36,7 +35,6 @@ const serviceCategories = [
   },
   {
     title: "Mobile App Development",
-    icon: "📱",
     desc: "Native and cross-platform mobile applications.",
     services: [
       { name: "Android Apps", desc: "Native Android applications built with modern frameworks." },
@@ -46,7 +44,6 @@ const serviceCategories = [
   },
   {
     title: "Software Systems",
-    icon: "⚙️",
     desc: "Custom software to automate and streamline your operations.",
     services: [
       { name: "LMS Platforms", desc: "Learning management systems for schools and training companies." },
@@ -58,7 +55,6 @@ const serviceCategories = [
   },
   {
     title: "Hosting & Infrastructure",
-    icon: "☁️",
     desc: "Everything you need to get and stay online.",
     services: [
       { name: "Web Hosting", desc: "Fast, reliable hosting optimized for performance." },

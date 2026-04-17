@@ -74,17 +74,17 @@ function HomePage() {
             </div>
           </motion.div>
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
-            className="relative"
+            className="relative md:-mr-8 lg:-mr-16"
           >
             <img
               src={heroIllustration}
               alt="Malloya Teq — websites, apps and dashboards"
-              width={1024}
+              width={1280}
               height={1024}
-              className="mx-auto w-full max-w-md md:max-w-full"
+              className="mx-auto w-full max-w-lg md:max-w-none md:scale-110 lg:scale-125"
             />
           </motion.div>
         </div>
