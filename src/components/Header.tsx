@@ -28,7 +28,7 @@ export function Header() {
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-1 md:flex">
+          <nav className="hidden items-center gap-1 lg:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.to}
@@ -42,7 +42,7 @@ export function Header() {
             ))}
           </nav>
 
-          <div className="hidden items-center gap-3 md:flex">
+          <div className="hidden items-center gap-3 lg:flex">
             <Link to="/quote" className="btn-gold text-sm !px-5 !py-2.5 inline-block no-underline">
               Request Quote
             </Link>
@@ -50,7 +50,7 @@ export function Header() {
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="flex h-10 w-10 items-center justify-center rounded-lg text-foreground transition-colors hover:bg-muted md:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-lg text-foreground transition-colors hover:bg-muted lg:hidden"
             aria-label="Toggle menu"
           >
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -75,7 +75,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="glass-card mx-4 mt-2 p-4 md:hidden"
+            className="glass-card mx-4 mt-2 p-4 lg:hidden"
           >
             <nav className="flex flex-col gap-1">
               {navLinks.map((link) => (

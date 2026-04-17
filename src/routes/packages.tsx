@@ -19,23 +19,36 @@ export const Route = createFileRoute("/packages")({
 
 function PackageCard({ pkg }: { pkg: Package }) {
   const [isAnnual, setIsAnnual] = useState(false);
+  const [withCms, setWithCms] = useState(false);
   const hasPricing = pkg.monthlyPrice !== null && pkg.annualPrice !== null;
-  const price = isAnnual ? pkg.annualPrice : pkg.monthlyPrice;
+  const hasCmsOption = pkg.cmsMonthlyAddon !== undefined && pkg.cmsAnnualAddon !== undefined;
+
+  const basePrice = isAnnual ? pkg.annualPrice : pkg.monthlyPrice;
+  const cmsAddon = isAnnual ? pkg.cmsAnnualAddon : pkg.cmsMonthlyAddon;
+  const finalPrice = withCms && cmsAddon ? (basePrice ?? 0) + cmsAddon : basePrice;
   const period = isAnnual ? "/yr" : "/mo";
 
   return (
     <div className={`glass-card-hover relative flex flex-col p-8 ${pkg.popular ? "glow-gold" : ""}`}>
       {pkg.popular && <span className="badge-gold mb-3 inline-block self-start">Most Popular</span>}
-      <h3 className="text-xl font-bold text-foreground">{pkg.name}</h3>
+      <h3 className="text-xl font-bold text-foreground">{pkg.name}{withCms && hasCmsOption ? " + CMS" : ""}</h3>
 
       {hasPricing ? (
         <>
           <div className="mt-3 mb-4">
-            <span className="text-4xl font-extrabold gold-gradient-text">R{price!.toLocaleString()}</span>
+            <motion.span
+              key={`${finalPrice}-${period}`}
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-4xl font-extrabold gold-gradient-text inline-block"
+            >
+              R{finalPrice!.toLocaleString()}
+            </motion.span>
             <span className="text-muted-foreground">{period}</span>
           </div>
+
           {/* Per-card billing toggle */}
-          <div className="mb-6 inline-flex self-start rounded-full border border-border bg-muted/50 p-1 text-xs font-medium">
+          <div className="mb-3 inline-flex self-start rounded-full border border-border bg-muted/50 p-1 text-xs font-medium">
             <button
               onClick={() => setIsAnnual(false)}
               className={`relative rounded-full px-3 py-1 transition-colors ${!isAnnual ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
@@ -44,7 +57,7 @@ function PackageCard({ pkg }: { pkg: Package }) {
                 <motion.span
                   layoutId={`toggle-${pkg.id}`}
                   className="absolute inset-0 rounded-full"
-                  style={{ background: "linear-gradient(135deg, oklch(0.7 0.08 65), oklch(0.65 0.09 60))" }}
+                  style={{ background: "linear-gradient(135deg, oklch(0.82 0.06 70), oklch(0.78 0.07 65))" }}
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
                 />
               )}
@@ -58,13 +71,38 @@ function PackageCard({ pkg }: { pkg: Package }) {
                 <motion.span
                   layoutId={`toggle-${pkg.id}`}
                   className="absolute inset-0 rounded-full"
-                  style={{ background: "linear-gradient(135deg, oklch(0.7 0.08 65), oklch(0.65 0.09 60))" }}
+                  style={{ background: "linear-gradient(135deg, oklch(0.82 0.06 70), oklch(0.78 0.07 65))" }}
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
                 />
               )}
               <span className="relative">Annual</span>
             </button>
           </div>
+
+          {/* CMS add-on toggle */}
+          {hasCmsOption && (
+            <label className="mb-6 flex cursor-pointer items-center justify-between gap-3 rounded-xl border border-border bg-muted/40 px-3 py-2 text-xs">
+              <div className="flex flex-col">
+                <span className="font-semibold text-foreground">With CMS</span>
+                <span className="text-muted-foreground">
+                  +R{cmsAddon!.toLocaleString()}{period}
+                </span>
+              </div>
+              <button
+                type="button"
+                role="switch"
+                aria-checked={withCms}
+                onClick={() => setWithCms(!withCms)}
+                className={`relative h-5 w-9 shrink-0 rounded-full transition-colors ${withCms ? "bg-primary" : "bg-border"}`}
+              >
+                <motion.span
+                  layout
+                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                  className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow ${withCms ? "right-0.5" : "left-0.5"}`}
+                />
+              </button>
+            </label>
+          )}
         </>
       ) : (
         <div className="mt-3 mb-6">
@@ -79,6 +117,17 @@ function PackageCard({ pkg }: { pkg: Package }) {
             {f}
           </li>
         ))}
+        {withCms && pkg.cmsFeatures?.map((f) => (
+          <motion.li
+            key={f}
+            initial={{ opacity: 0, x: -8 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="flex items-start gap-2 text-sm font-medium text-foreground"
+          >
+            <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" strokeWidth={2.5} />
+            {f}
+          </motion.li>
+        ))}
       </ul>
       <Link
         to="/quote"
@@ -92,7 +141,6 @@ function PackageCard({ pkg }: { pkg: Package }) {
 
 function PackagesPage() {
   const staticPkgs = websitePackages.filter((p) => p.category === "static");
-  const dynamicPkgs = websitePackages.filter((p) => p.category === "dynamic");
   const storePkgs = websitePackages.filter((p) => p.category === "store");
 
   return (
@@ -101,7 +149,7 @@ function PackagesPage() {
         <div className="absolute inset-0 overflow-hidden">
           <div
             className="absolute -top-40 left-1/3 h-[500px] w-[500px] rounded-full opacity-20 blur-[120px]"
-            style={{ background: "radial-gradient(circle, oklch(0.85 0.06 65), transparent 70%)" }}
+            style={{ background: "radial-gradient(circle, oklch(0.88 0.05 70), transparent 70%)" }}
           />
         </div>
         <div className="relative mx-auto max-w-4xl text-center">
@@ -110,7 +158,7 @@ function PackagesPage() {
             Packages & <span className="gold-gradient-text">Pricing</span>
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-base text-muted-foreground md:text-lg">
-            Flexible plans designed for South African businesses. Switch between monthly and annual billing on any package.
+            Flexible plans designed for South African businesses. Toggle monthly/annual billing — and add CMS to any static package with one click.
           </p>
         </div>
       </section>
@@ -139,7 +187,7 @@ function PackagesPage() {
       </Section>
 
       <Section>
-        <SectionHeader badge="Static Websites" title="Static Website Packages" description="Perfect for businesses that need a professional web presence." />
+        <SectionHeader badge="Websites" title="Website Packages" description="Static-first websites with optional CMS upgrade — pay only for what you need." />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {staticPkgs.map((pkg, i) => (
             <motion.div key={pkg.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
@@ -150,17 +198,6 @@ function PackagesPage() {
       </Section>
 
       <Section className="!bg-surface">
-        <SectionHeader badge="Dynamic Websites" title="CMS Website Packages" description="Manage your content with powerful admin dashboards." />
-        <div className="grid gap-6 sm:grid-cols-2">
-          {dynamicPkgs.map((pkg, i) => (
-            <motion.div key={pkg.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
-              <PackageCard pkg={pkg} />
-            </motion.div>
-          ))}
-        </div>
-      </Section>
-
-      <Section>
         <SectionHeader badge="Online Stores" title="E-Commerce Packages" description="Sell online with powerful store solutions." />
         <div className="grid gap-6 sm:grid-cols-2">
           {storePkgs.map((pkg, i) => (
@@ -171,7 +208,7 @@ function PackagesPage() {
         </div>
       </Section>
 
-      <Section className="!bg-surface">
+      <Section>
         <SectionHeader badge="Mobile Apps" title="App Development Packages" description="Custom mobile applications built for your business." />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {appPackages.map((pkg, i) => (
