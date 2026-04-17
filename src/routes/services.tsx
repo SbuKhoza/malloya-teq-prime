@@ -86,8 +86,8 @@ function ServicesPage() {
       {serviceCategories.map((cat, ci) => (
         <Section key={cat.title} className={ci % 2 === 1 ? "!bg-surface" : ""}>
           <div className="mb-12 flex items-center gap-4">
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-3xl">
-              {cat.icon}
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10">
+              <cat.Icon className="h-7 w-7 text-primary" strokeWidth={1.75} />
             </div>
             <div>
               <h2 className="text-2xl font-bold text-foreground md:text-3xl">{cat.title}</h2>
