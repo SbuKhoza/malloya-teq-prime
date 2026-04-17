@@ -17,7 +17,7 @@ export function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
-      <div className="glass-card mx-4 mt-4 !rounded-2xl" style={{ borderRadius: "1rem" }}>
+      <div className="mx-4 mt-4 rounded-2xl border border-border bg-background shadow-sm">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <Link to="/" className="flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
@@ -75,7 +75,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="glass-card mx-4 mt-2 p-4 lg:hidden"
+            className="mx-4 mt-2 rounded-2xl border border-border bg-background p-4 shadow-sm lg:hidden"
           >
             <nav className="flex flex-col gap-1">
               {navLinks.map((link) => (
