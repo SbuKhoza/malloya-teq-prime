@@ -1,6 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { Section, SectionHeader } from "../components/Section";
+import { Globe, Smartphone, Settings, Cloud, type LucideIcon } from "lucide-react";
+import { Section } from "../components/Section";
+
+const icons: Record<string, LucideIcon> = {
+  "Website Development": Globe,
+  "Mobile App Development": Smartphone,
+  "Software Systems": Settings,
+  "Hosting & Infrastructure": Cloud,
+};
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -86,8 +94,8 @@ function ServicesPage() {
       {serviceCategories.map((cat, ci) => (
         <Section key={cat.title} className={ci % 2 === 1 ? "!bg-surface" : ""}>
           <div className="mb-12 flex items-center gap-4">
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-3xl">
-              {cat.icon}
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10">
+              {(() => { const I = icons[cat.title]; return <I className="h-7 w-7 text-primary" strokeWidth={1.75} />; })()}
             </div>
             <div>
               <h2 className="text-2xl font-bold text-foreground md:text-3xl">{cat.title}</h2>

@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { Globe, Smartphone, Settings, Cloud, Check, Star, ShieldCheck, MapPin, Wallet, LifeBuoy } from "lucide-react";
 import { Section, SectionHeader } from "../components/Section";
 import { reviews } from "../data/reviews";
 import { websitePackages } from "../data/packages";
+import heroIllustration from "../assets/hero-illustration.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -17,67 +19,52 @@ export const Route = createFileRoute("/")({
 });
 
 const services = [
-  {
-    icon: "🌐",
-    title: "Website Development",
-    desc: "Static sites, dynamic CMS, online stores & dropshipping platforms.",
-  },
-  {
-    icon: "📱",
-    title: "Mobile App Development",
-    desc: "Android, iOS & cross-platform apps built for performance.",
-  },
-  {
-    icon: "⚙️",
-    title: "Software Systems",
-    desc: "LMS, automation, booking, inventory & custom internal systems.",
-  },
-  {
-    icon: "☁️",
-    title: "Hosting & Domains",
-    desc: "Web hosting, domain setup, SSL, business emails & maintenance.",
-  },
+  { Icon: Globe, title: "Website Development", desc: "Static sites, dynamic CMS, online stores & dropshipping platforms." },
+  { Icon: Smartphone, title: "Mobile App Development", desc: "Android, iOS & cross-platform apps built for performance." },
+  { Icon: Settings, title: "Software Systems", desc: "LMS, automation, booking, inventory & custom internal systems." },
+  { Icon: Cloud, title: "Hosting & Domains", desc: "Web hosting, domain setup, SSL, business emails & maintenance." },
 ];
 
 const whyUs = [
-  { title: "Premium Quality", desc: "Every project is crafted to the highest standards." },
-  { title: "South African Focused", desc: "We understand the local market and business needs." },
-  { title: "Affordable Packages", desc: "Competitive pricing without compromising quality." },
-  { title: "Ongoing Support", desc: "We don't disappear after launch — we're here to help." },
+  { Icon: ShieldCheck, title: "Premium Quality", desc: "Every project is crafted to the highest standards." },
+  { Icon: MapPin, title: "South African Focused", desc: "We understand the local market and business needs." },
+  { Icon: Wallet, title: "Affordable Packages", desc: "Competitive pricing without compromising quality." },
+  { Icon: LifeBuoy, title: "Ongoing Support", desc: "We don't disappear after launch — we're here to help." },
 ];
 
 function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden px-6 pb-20 pt-16 md:pb-32 md:pt-24">
+      <section className="relative overflow-hidden px-6 pb-20 pt-12 md:pb-28 md:pt-16">
         <div className="absolute inset-0 overflow-hidden">
           <div
-            className="absolute -top-40 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full opacity-30 blur-[120px]"
-            style={{ background: "radial-gradient(circle, oklch(0.78 0.08 65), transparent 70%)" }}
+            className="absolute -top-40 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full opacity-25 blur-[120px]"
+            style={{ background: "radial-gradient(circle, oklch(0.85 0.06 65), transparent 70%)" }}
           />
           <div
-            className="absolute -bottom-20 right-0 h-[400px] w-[400px] rounded-full opacity-15 blur-[100px]"
-            style={{ background: "radial-gradient(circle, oklch(0.75 0.08 210), transparent 70%)" }}
+            className="absolute -bottom-20 right-0 h-[400px] w-[400px] rounded-full opacity-20 blur-[100px]"
+            style={{ background: "radial-gradient(circle, oklch(0.85 0.06 210), transparent 70%)" }}
           />
         </div>
 
-        <div className="relative mx-auto max-w-5xl text-center">
+        <div className="relative mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-center md:text-left"
           >
             <span className="badge-gold mb-6 inline-block">South Africa's Premium Tech Partner</span>
-            <h1 className="text-4xl font-extrabold leading-tight tracking-tight md:text-7xl">
+            <h1 className="text-3xl font-extrabold leading-tight tracking-tight md:text-5xl">
               Websites, Apps &{" "}
               <span className="gold-gradient-text">Smart Business</span>{" "}
               Systems
             </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground md:text-xl">
+            <p className="mx-auto mt-5 max-w-xl text-base text-muted-foreground md:mx-0 md:text-lg">
               Helping businesses grow through websites, mobile apps, automation and custom software.
             </p>
-            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row md:justify-start">
               <Link to="/quote" className="btn-gold inline-block text-base no-underline">
                 Request Quote
               </Link>
@@ -85,6 +72,20 @@ function HomePage() {
                 View Work
               </Link>
             </div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
+            className="relative"
+          >
+            <img
+              src={heroIllustration}
+              alt="Malloya Teq — websites, apps and dashboards"
+              width={1024}
+              height={1024}
+              className="mx-auto w-full max-w-md md:max-w-full"
+            />
           </motion.div>
         </div>
       </section>
@@ -102,7 +103,9 @@ function HomePage() {
               transition={{ delay: i * 0.1, duration: 0.5 }}
               className="glass-card-hover p-8 text-center"
             >
-              <div className="mb-4 text-4xl">{s.icon}</div>
+              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
+                <s.Icon className="h-6 w-6 text-primary" strokeWidth={1.75} />
+              </div>
               <h3 className="mb-2 text-lg font-semibold text-foreground">{s.title}</h3>
               <p className="text-sm text-muted-foreground">{s.desc}</p>
             </motion.div>
@@ -139,9 +142,7 @@ function HomePage() {
               <ul className="mb-8 space-y-2">
                 {pkg.features.slice(0, 4).map((f) => (
                   <li key={f} className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <svg className="h-4 w-4 shrink-0 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
+                    <Check className="h-4 w-4 shrink-0 text-primary" strokeWidth={2.5} />
                     {f}
                   </li>
                 ))}
@@ -170,9 +171,7 @@ function HomePage() {
               className="glass-card p-8"
             >
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
-                <svg className="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
+                <item.Icon className="h-6 w-6 text-primary" strokeWidth={1.75} />
               </div>
               <h3 className="mb-2 text-lg font-semibold text-foreground">{item.title}</h3>
               <p className="text-sm text-muted-foreground">{item.desc}</p>
@@ -196,9 +195,7 @@ function HomePage() {
             >
               <div className="mb-4 flex gap-1">
                 {Array.from({ length: review.rating }).map((_, j) => (
-                  <svg key={j} className="h-5 w-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
+                  <Star key={j} className="h-5 w-5 fill-primary text-primary" />
                 ))}
               </div>
               <p className="mb-6 text-sm leading-relaxed text-muted-foreground">"{review.text}"</p>
