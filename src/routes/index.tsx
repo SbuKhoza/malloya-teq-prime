@@ -2,8 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Globe, Smartphone, Settings, Cloud, Check, Star, ShieldCheck, MapPin, Wallet, LifeBuoy } from "lucide-react";
 import { Section, SectionHeader } from "../components/Section";
-import { reviews } from "../data/reviews";
-import { websitePackages } from "../data/packages";
+import { useContent } from "../lib/use-content";
 import heroIllustration from "../assets/hero-illustration.png";
 
 export const Route = createFileRoute("/")({
@@ -33,6 +32,7 @@ const whyUs = [
 ];
 
 function HomePage() {
+  const { websitePackages, reviews, copy } = useContent();
   return (
     <>
       {/* Hero */}
