@@ -2,8 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Globe, Smartphone, Settings, Cloud, Check, Star, ShieldCheck, MapPin, Wallet, LifeBuoy } from "lucide-react";
 import { Section, SectionHeader } from "../components/Section";
-import { reviews } from "../data/reviews";
-import { websitePackages } from "../data/packages";
+import { useContent } from "../lib/use-content";
 import heroIllustration from "../assets/hero-illustration.png";
 
 export const Route = createFileRoute("/")({
@@ -33,6 +32,7 @@ const whyUs = [
 ];
 
 function HomePage() {
+  const { websitePackages, reviews, copy } = useContent();
   return (
     <>
       {/* Hero */}
@@ -55,14 +55,12 @@ function HomePage() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-center md:text-left"
           >
-            <span className="badge-gold mb-6 inline-block">South Africa's Premium Tech Partner</span>
+            <span className="badge-gold mb-6 inline-block">{copy.homeHeroBadge}</span>
             <h1 className="text-3xl font-extrabold leading-tight tracking-tight md:text-5xl">
-              Websites, Apps &{" "}
-              <span className="gold-gradient-text">Smart Business</span>{" "}
-              Systems
+              {copy.homeHeroTitle}
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-base text-muted-foreground md:mx-0 md:text-lg">
-              Helping businesses grow through websites, mobile apps, automation and custom software.
+              {copy.homeHeroSubtitle}
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row md:justify-start">
               <Link to="/quote" className="btn-gold inline-block text-base no-underline">

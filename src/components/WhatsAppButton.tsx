@@ -1,7 +1,10 @@
+import { useContent } from "../lib/use-content";
+
 export function WhatsAppButton() {
+  const { copy } = useContent();
   return (
     <a
-      href="https://wa.me/27000000000"
+      href={`https://wa.me/${copy.whatsappNumber}`}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"

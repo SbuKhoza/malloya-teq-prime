@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Mail, MessageCircle, MapPin } from "lucide-react";
 import { Section } from "../components/Section";
+import { useContent } from "../lib/use-content";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -14,27 +16,31 @@ export const Route = createFileRoute("/contact")({
 });
 
 function ContactPage() {
+  const { copy } = useContent();
+  const cards = [
+    { Icon: Mail, title: "Email", info: copy.contactEmail, href: `mailto:${copy.contactEmail}` },
+    { Icon: MessageCircle, title: "WhatsApp", info: "Chat with us", href: `https://wa.me/${copy.whatsappNumber}` },
+    { Icon: MapPin, title: "Location", info: copy.location, href: "#" },
+  ];
+
   return (
     <>
       <section className="px-6 pb-12 pt-12 md:pb-20 md:pt-16">
         <div className="mx-auto max-w-4xl text-center">
           <span className="badge-gold mb-4 inline-block">Contact</span>
           <h1 className="text-4xl font-extrabold tracking-tight md:text-6xl">
-            Get in <span className="gold-gradient-text">Touch</span>
+            {copy.contactHeroTitle.split(" ").slice(0, -1).join(" ")}{" "}
+            <span className="gold-gradient-text">{copy.contactHeroTitle.split(" ").slice(-1)}</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
-            Ready to start your project? We'd love to hear from you.
+            {copy.contactHeroSubtitle}
           </p>
         </div>
       </section>
 
       <Section>
         <div className="grid gap-8 md:grid-cols-3">
-          {[
-            { icon: "✉️", title: "Email", info: "info@malloyateq.co.za", href: "mailto:info@malloyateq.co.za" },
-            { icon: "💬", title: "WhatsApp", info: "Chat with us", href: "https://wa.me/27000000000" },
-            { icon: "📍", title: "Location", info: "South Africa", href: "#" },
-          ].map((c) => (
+          {cards.map((c) => (
             <a
               key={c.title}
               href={c.href}
@@ -42,7 +48,9 @@ function ContactPage() {
               rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
               className="glass-card-hover block p-8 text-center no-underline"
             >
-              <div className="mb-4 text-4xl">{c.icon}</div>
+              <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10">
+                <c.Icon className="h-7 w-7 text-primary" strokeWidth={1.75} />
+              </div>
               <h3 className="mb-1 text-lg font-semibold text-foreground">{c.title}</h3>
               <p className="text-sm text-muted-foreground">{c.info}</p>
             </a>

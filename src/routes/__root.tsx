@@ -1,7 +1,8 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute, HeadContent, Scripts, useRouterState } from "@tanstack/react-router";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { WhatsAppButton } from "../components/WhatsAppButton";
+import { AuthProvider } from "../lib/auth-context";
 
 import appCss from "../styles.css?url";
 
@@ -59,14 +60,23 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isAdminArea = pathname.startsWith("/admin");
+
   return (
-    <>
-      <Header />
-      <main className="pt-24">
+    <AuthProvider>
+      {isAdminArea ? (
         <Outlet />
-      </main>
-      <Footer />
-      <WhatsAppButton />
-    </>
+      ) : (
+        <>
+          <Header />
+          <main className="pt-24">
+            <Outlet />
+          </main>
+          <Footer />
+          <WhatsAppButton />
+        </>
+      )}
+    </AuthProvider>
   );
 }
