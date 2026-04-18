@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Globe, Smartphone, Settings, Cloud, type LucideIcon } from "lucide-react";
 import { Section } from "../components/Section";
+import { useContent } from "../lib/use-content";
 
 const icons: Record<string, LucideIcon> = {
   "Website Development": Globe,
@@ -67,6 +68,7 @@ const serviceCategories = [
 ];
 
 function ServicesPage() {
+  const { copy } = useContent();
   return (
     <>
       <section className="relative overflow-hidden px-6 pb-12 pt-12 md:pb-20 md:pt-16">
@@ -79,10 +81,10 @@ function ServicesPage() {
         <div className="relative mx-auto max-w-4xl text-center">
           <span className="badge-ice mb-4 inline-block">Our Services</span>
           <h1 className="text-4xl font-extrabold tracking-tight md:text-6xl">
-            Digital Solutions That <span className="ice-gradient-text">Drive Growth</span>
+            {copy.servicesHeroTitle}
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
-            From concept to launch, we build premium digital products that help South African businesses thrive.
+            {copy.servicesHeroSubtitle}
           </p>
         </div>
       </section>

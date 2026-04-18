@@ -3,7 +3,8 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { Check } from "lucide-react";
 import { Section, SectionHeader } from "../components/Section";
-import { websitePackages, appPackages, includedBenefits, type Package } from "../data/packages";
+import { type Package } from "../data/packages";
+import { useContent } from "../lib/use-content";
 
 export const Route = createFileRoute("/packages")({
   head: () => ({
@@ -140,6 +141,7 @@ function PackageCard({ pkg }: { pkg: Package }) {
 }
 
 function PackagesPage() {
+  const { websitePackages, appPackages, includedBenefits } = useContent();
   const staticPkgs = websitePackages.filter((p) => p.category === "static");
   const storePkgs = websitePackages.filter((p) => p.category === "store");
 

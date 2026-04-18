@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Section, SectionHeader } from "../components/Section";
-import { portfolioItems } from "../data/portfolio";
+import { useContent } from "../lib/use-content";
 
 export const Route = createFileRoute("/portfolio")({
   head: () => ({
@@ -24,6 +24,7 @@ const filters = [
 ] as const;
 
 function PortfolioPage() {
+  const { portfolio: portfolioItems } = useContent();
   const [filter, setFilter] = useState<string>("all");
 
   const filtered = filter === "all" ? portfolioItems : portfolioItems.filter((p) => p.category === filter);
