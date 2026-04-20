@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Section } from "../components/Section";
-import { websitePackages, appPackages } from "../data/packages";
+import { useContent } from "../lib/use-content";
+import { submitQuote } from "../lib/content-service";
 
 export const Route = createFileRoute("/quote")({
   head: () => ({
