@@ -78,6 +78,9 @@ function AdminPage() {
     { id: "packages", label: "Packages" },
     { id: "portfolio", label: "Portfolio" },
     { id: "reviews", label: "Reviews" },
+    { id: "contact", label: "Contact Page" },
+    { id: "faq", label: "FAQ" },
+    { id: "quotes", label: "Quotes" },
     { id: "copy", label: "Page Copy" },
   ];
 
@@ -181,6 +184,23 @@ function AdminPage() {
             onReset={() => handleResetSection("reviews")}
           />
         )}
+        {tab === "contact" && (
+          <ContactEditor
+            copy={content.copy}
+            onChange={(copy) => update({ copy })}
+            onReset={() => handleResetSection("copy")}
+          />
+        )}
+        {tab === "faq" && (
+          <FaqEditor
+            copy={content.copy}
+            faqs={content.faqs}
+            onCopyChange={(copy) => update({ copy })}
+            onChange={(faqs) => update({ faqs })}
+            onReset={() => handleResetSection("faqs")}
+          />
+        )}
+        {tab === "quotes" && <QuotesViewer />}
         {tab === "copy" && (
           <CopyEditor
             copy={content.copy}
