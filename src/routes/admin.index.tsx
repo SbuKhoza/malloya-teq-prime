@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { LogOut, Save, Plus, Trash2, Loader2, CheckCircle2, ExternalLink, RefreshCw, Mail, Phone } from "lucide-react";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useAuth } from "../lib/auth-context";
 import {
   defaultContent,
@@ -280,6 +281,97 @@ function SectionCard({
         {action}
       </div>
       {children}
+    </div>
+  );
+}
+
+/* ---------- Screenshot uploader ---------- */
+
+function ScreenshotUploader({
+  currentUrl,
+  onUploaded,
+}: {
+  currentUrl: string;
+  onUploaded: (url: string) => void;
+}) {
+  const [uploading, setUploading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [uploadError, setUploadError] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleFile = (file: File) => {
+    if (!file.type.startsWith("image/")) {
+      setUploadError("Please select an image file.");
+      return;
+    }
+    setUploadError("");
+    setUploading(true);
+    setProgress(0);
+
+    const storage = getStorage();
+    const storageRef = ref(storage, `portfolio/${Date.now()}-${file.name}`);
+    const task = uploadBytesResumable(storageRef, file);
+
+    task.on(
+      "state_changed",
+      (snap) => setProgress(Math.round((snap.bytesTransferred / snap.totalBytes) * 100)),
+      (err) => {
+        setUploadError(err.message);
+        setUploading(false);
+      },
+      async () => {
+        const url = await getDownloadURL(task.snapshot.ref);
+        onUploaded(url);
+        setUploading(false);
+        setProgress(0);
+      }
+    );
+  };
+
+  return (
+    <div className="space-y-2">
+      <div className="flex gap-2">
+        <TextInput
+          value={currentUrl}
+          onChange={(e) => onUploaded(e.target.value)}
+          placeholder="https://... or upload an image"
+        />
+        <button
+          type="button"
+          onClick={() => inputRef.current?.click()}
+          disabled={uploading}
+          className="inline-flex shrink-0 items-center gap-1.5 rounded-md border border-border px-3 py-2 text-xs font-medium hover:bg-muted disabled:opacity-60"
+        >
+          {uploading ? (
+            <Loader2 className="h-3.5 w-3.5 animate-spin" />
+          ) : (
+            <Plus className="h-3.5 w-3.5" />
+          )}
+          {uploading ? `${progress}%` : "Upload"}
+        </button>
+        <input
+          ref={inputRef}
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={(e) => {
+            if (e.target.files?.[0]) handleFile(e.target.files[0]);
+            // Reset so the same file can be re-selected if needed
+            e.target.value = "";
+          }}
+        />
+      </div>
+      {uploadError && (
+        <p className="text-xs text-destructive">{uploadError}</p>
+      )}
+      {currentUrl && !uploading && (
+        <img
+          src={currentUrl}
+          alt="Screenshot preview"
+          className="h-24 w-auto rounded-md border border-border object-cover"
+          onError={(e) => (e.currentTarget.style.display = "none")}
+        />
+      )}
     </div>
   );
 }
@@ -664,10 +756,10 @@ function PortfolioEditor({
               </button>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
-              <Field label="Screenshot URL">
-                <TextInput
-                  value={item.screenshot}
-                  onChange={(e) => update(i, { screenshot: e.target.value })}
+              <Field label="Screenshot">
+                <ScreenshotUploader
+                  currentUrl={item.screenshot}
+                  onUploaded={(url) => update(i, { screenshot: url })}
                 />
               </Field>
               <Field label="Project URL">
