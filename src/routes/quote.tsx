@@ -24,7 +24,6 @@ const serviceTypes = [
   "Hosting & Domains",
 ] as const;
 
-
 function QuotePage() {
   const { copy, websitePackages, appPackages } = useContent();
   const allPackages = [...websitePackages, ...appPackages];
