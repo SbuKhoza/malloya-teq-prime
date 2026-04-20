@@ -91,12 +91,15 @@ function QuotePage() {
     <>
       <section className="px-6 pb-8 pt-12 md:pt-16">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="badge-gold mb-4 inline-block">Get Started</span>
+          <span className="badge-gold mb-4 inline-block">{copy.quoteHeroBadge}</span>
           <h1 className="text-4xl font-extrabold tracking-tight md:text-5xl">
-            Request a <span className="gold-gradient-text">Quote</span>
+            {copy.quoteHeroTitle.split(" ").slice(0, -1).join(" ")}{" "}
+            <span className="gold-gradient-text">
+              {copy.quoteHeroTitle.split(" ").slice(-1).join(" ")}
+            </span>
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-            Tell us about your project and we'll get back to you with a custom proposal.
+            {copy.quoteHeroSubtitle}
           </p>
         </div>
       </section>
@@ -271,23 +274,34 @@ function QuotePage() {
                 </div>
               )}
 
-              <div className="mt-8 flex items-center justify-between">
-                {step > 1 ? (
-                  <button onClick={prev} className="btn-outline-gold text-sm">
-                    Back
-                  </button>
-                ) : (
-                  <div />
+              <div className="mt-8">
+                {submitError && (
+                  <div className="mb-4 rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-2 text-xs text-destructive">
+                    {submitError}
+                  </div>
                 )}
-                {step < 4 ? (
-                  <button onClick={next} className="btn-gold text-sm">
-                    Continue
-                  </button>
-                ) : (
-                  <button onClick={handleSubmit} className="btn-gold text-sm">
-                    Submit Quote
-                  </button>
-                )}
+                <div className="flex items-center justify-between">
+                  {step > 1 ? (
+                    <button onClick={prev} className="btn-outline-gold text-sm" disabled={submitting}>
+                      Back
+                    </button>
+                  ) : (
+                    <div />
+                  )}
+                  {step < 4 ? (
+                    <button onClick={next} className="btn-gold text-sm">
+                      Continue
+                    </button>
+                  ) : (
+                    <button
+                      onClick={handleSubmit}
+                      disabled={submitting}
+                      className="btn-gold text-sm disabled:opacity-60"
+                    >
+                      {submitting ? "Submitting…" : "Submit Quote"}
+                    </button>
+                  )}
+                </div>
               </div>
             </motion.div>
           </AnimatePresence>
