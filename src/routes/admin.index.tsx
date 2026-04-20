@@ -1,13 +1,17 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { LogOut, Save, Plus, Trash2, Loader2, CheckCircle2, ExternalLink } from "lucide-react";
+import { LogOut, Save, Plus, Trash2, Loader2, CheckCircle2, ExternalLink, RefreshCw, Mail, Phone } from "lucide-react";
 import { useAuth } from "../lib/auth-context";
 import {
   defaultContent,
   loadContent,
   saveContent,
+  loadQuotes,
+  deleteQuote,
   type ContentDoc,
   type PageCopy,
+  type FAQItem,
+  type QuoteSubmission,
 } from "../lib/content-service";
 import type { Package } from "../data/packages";
 import type { PortfolioItem } from "../data/portfolio";
@@ -23,7 +27,7 @@ export const Route = createFileRoute("/admin/")({
   component: AdminPage,
 });
 
-type Tab = "packages" | "portfolio" | "reviews" | "copy";
+type Tab = "packages" | "portfolio" | "reviews" | "copy" | "contact" | "faq" | "quotes";
 
 function AdminPage() {
   const { user, isAdmin, loading, signOut } = useAuth();
