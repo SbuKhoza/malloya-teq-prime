@@ -35,6 +35,12 @@ export const Route = createRootRoute({
       { name: "author", content: "Malloya Teq" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "Malloya Teq — Premium Web & App Development" },
+      { name: "twitter:title", content: "Malloya Teq — Premium Web & App Development" },
+      { property: "og:description", content: "South African technology company offering premium website development, mobile apps, software systems, automation, hosting and more." },
+      { name: "twitter:description", content: "South African technology company offering premium website development, mobile apps, software systems, automation, hosting and more." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/83ad3a5b-efe8-441a-a877-38b128a2def5/id-preview-452a0445--f8e15e81-c53c-4f20-b686-184c2f201e09.lovable.app-1776486969063.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/83ad3a5b-efe8-441a-a877-38b128a2def5/id-preview-452a0445--f8e15e81-c53c-4f20-b686-184c2f201e09.lovable.app-1776486969063.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
