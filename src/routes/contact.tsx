@@ -61,10 +61,10 @@ function ContactPage() {
       <Section>
         <div className="glass-card glow-gold p-12 text-center md:p-20">
           <h2 className="text-3xl font-bold text-foreground md:text-4xl">
-            Prefer a Detailed Quote?
+            {copy.contactCtaTitle}
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-            Use our quote form to give us all the details about your project.
+            {copy.contactCtaSubtitle}
           </p>
           <div className="mt-8">
             <Link to="/quote" className="btn-gold inline-block text-base no-underline">
