@@ -27,8 +27,12 @@ const serviceTypes = [
 const allPackages = [...websitePackages, ...appPackages];
 
 function QuotePage() {
+  const { copy, websitePackages, appPackages } = useContent();
+  const allPackages = [...websitePackages, ...appPackages];
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
     serviceType: "",
     packageName: "",
@@ -46,10 +50,17 @@ function QuotePage() {
   const next = () => setStep((s) => Math.min(s + 1, 4));
   const prev = () => setStep((s) => Math.max(s - 1, 1));
 
-  const handleSubmit = () => {
-    // Future: save to backend
-    console.log("Quote submitted:", { ...form, createdAt: new Date().toISOString() });
-    setSubmitted(true);
+  const handleSubmit = async () => {
+    setSubmitting(true);
+    setSubmitError("");
+    try {
+      await submitQuote(form);
+      setSubmitted(true);
+    } catch (e: unknown) {
+      setSubmitError(e instanceof Error ? e.message : "Submission failed. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (submitted) {
