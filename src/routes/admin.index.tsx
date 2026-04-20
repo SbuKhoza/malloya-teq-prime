@@ -869,3 +869,327 @@ function CopyEditor({
     </>
   );
 }
+
+/* ---------- Contact Page editor ---------- */
+
+function ContactEditor({
+  copy,
+  onChange,
+  onReset,
+}: {
+  copy: PageCopy;
+  onChange: (c: PageCopy) => void;
+  onReset: () => void;
+}) {
+  const set = (k: keyof PageCopy, v: string) => onChange({ ...copy, [k]: v });
+  return (
+    <SectionCard
+      title="Contact page"
+      action={
+        <button onClick={onReset} className="text-xs text-muted-foreground hover:text-foreground">
+          Reset
+        </button>
+      }
+    >
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field label="Hero title">
+          <TextInput
+            value={copy.contactHeroTitle}
+            onChange={(e) => set("contactHeroTitle", e.target.value)}
+          />
+        </Field>
+        <Field label="Hero subtitle">
+          <TextInput
+            value={copy.contactHeroSubtitle}
+            onChange={(e) => set("contactHeroSubtitle", e.target.value)}
+          />
+        </Field>
+        <Field label="Contact email">
+          <TextInput value={copy.contactEmail} onChange={(e) => set("contactEmail", e.target.value)} />
+        </Field>
+        <Field label="WhatsApp number (digits only)">
+          <TextInput
+            value={copy.whatsappNumber}
+            onChange={(e) => set("whatsappNumber", e.target.value.replace(/\D/g, ""))}
+          />
+        </Field>
+        <Field label="Location">
+          <TextInput value={copy.location} onChange={(e) => set("location", e.target.value)} />
+        </Field>
+      </div>
+      <div className="mt-6 grid gap-4">
+        <h3 className="text-sm font-semibold text-foreground">Bottom CTA banner</h3>
+        <Field label="CTA title">
+          <TextInput
+            value={copy.contactCtaTitle}
+            onChange={(e) => set("contactCtaTitle", e.target.value)}
+          />
+        </Field>
+        <Field label="CTA subtitle">
+          <TextArea
+            rows={2}
+            value={copy.contactCtaSubtitle}
+            onChange={(e) => set("contactCtaSubtitle", e.target.value)}
+          />
+        </Field>
+      </div>
+    </SectionCard>
+  );
+}
+
+/* ---------- FAQ editor ---------- */
+
+function FaqEditor({
+  copy,
+  faqs,
+  onCopyChange,
+  onChange,
+  onReset,
+}: {
+  copy: PageCopy;
+  faqs: FAQItem[];
+  onCopyChange: (c: PageCopy) => void;
+  onChange: (f: FAQItem[]) => void;
+  onReset: () => void;
+}) {
+  const update = (i: number, p: Partial<FAQItem>) => {
+    const next = [...faqs];
+    next[i] = { ...next[i], ...p };
+    onChange(next);
+  };
+  const add = () => onChange([...faqs, { q: "New question", a: "" }]);
+  const setCopy = (k: keyof PageCopy, v: string) => onCopyChange({ ...copy, [k]: v });
+
+  return (
+    <>
+      <SectionCard title="FAQ page header">
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field label="Hero badge">
+            <TextInput value={copy.faqHeroBadge} onChange={(e) => setCopy("faqHeroBadge", e.target.value)} />
+          </Field>
+          <Field label="Hero title">
+            <TextInput value={copy.faqHeroTitle} onChange={(e) => setCopy("faqHeroTitle", e.target.value)} />
+          </Field>
+        </div>
+      </SectionCard>
+
+      <SectionCard
+        title="Questions & Answers"
+        action={
+          <div className="flex items-center gap-2">
+            <button
+              onClick={add}
+              className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-xs hover:bg-muted"
+            >
+              <Plus className="h-3.5 w-3.5" /> Add FAQ
+            </button>
+            <button onClick={onReset} className="text-xs text-muted-foreground hover:text-foreground">
+              Reset
+            </button>
+          </div>
+        }
+      >
+        <div className="space-y-4">
+          {faqs.map((faq, i) => (
+            <div key={i} className="rounded-xl border border-border bg-background p-4">
+              <div className="mb-3 flex items-start gap-3">
+                <div className="flex-1">
+                  <Field label="Question">
+                    <TextInput value={faq.q} onChange={(e) => update(i, { q: e.target.value })} />
+                  </Field>
+                </div>
+                <button
+                  onClick={() => {
+                    if (confirm("Delete this FAQ?")) onChange(faqs.filter((_, idx) => idx !== i));
+                  }}
+                  className="mt-5 rounded-md border border-border p-2 text-muted-foreground hover:border-destructive hover:text-destructive"
+                  aria-label="Delete"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </button>
+              </div>
+              <Field label="Answer">
+                <TextArea rows={3} value={faq.a} onChange={(e) => update(i, { a: e.target.value })} />
+              </Field>
+            </div>
+          ))}
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Quote page header (related)">
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field label="Hero badge">
+            <TextInput
+              value={copy.quoteHeroBadge}
+              onChange={(e) => setCopy("quoteHeroBadge", e.target.value)}
+            />
+          </Field>
+          <Field label="Hero title">
+            <TextInput
+              value={copy.quoteHeroTitle}
+              onChange={(e) => setCopy("quoteHeroTitle", e.target.value)}
+            />
+          </Field>
+          <div className="sm:col-span-2">
+            <Field label="Hero subtitle">
+              <TextArea
+                rows={2}
+                value={copy.quoteHeroSubtitle}
+                onChange={(e) => setCopy("quoteHeroSubtitle", e.target.value)}
+              />
+            </Field>
+          </div>
+        </div>
+      </SectionCard>
+    </>
+  );
+}
+
+/* ---------- Quotes viewer ---------- */
+
+function QuotesViewer() {
+  const [quotes, setQuotes] = useState<QuoteSubmission[] | null>(null);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState<string | null>(null);
+
+  const refresh = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      setQuotes(await loadQuotes());
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : "Failed to load quotes");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    refresh();
+  }, []);
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("Delete this quote submission? This cannot be undone.")) return;
+    try {
+      await deleteQuote(id);
+      setQuotes((q) => (q ? q.filter((x) => x.id !== id) : q));
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : "Delete failed");
+    }
+  };
+
+  return (
+    <SectionCard
+      title={`Quote Submissions${quotes ? ` (${quotes.length})` : ""}`}
+      action={
+        <button
+          onClick={refresh}
+          disabled={loading}
+          className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-xs hover:bg-muted disabled:opacity-60"
+        >
+          <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} /> Refresh
+        </button>
+      }
+    >
+      {error && (
+        <div className="mb-4 rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-2 text-xs text-destructive">
+          {error}
+        </div>
+      )}
+      {!quotes ? (
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Loader2 className="h-4 w-4 animate-spin" /> Loading…
+        </div>
+      ) : quotes.length === 0 ? (
+        <p className="text-sm text-muted-foreground">No quote submissions yet.</p>
+      ) : (
+        <div className="space-y-3">
+          {quotes.map((q) => {
+            const isOpen = open === q.id;
+            return (
+              <div key={q.id} className="rounded-xl border border-border bg-background">
+                <button
+                  onClick={() => setOpen(isOpen ? null : q.id ?? null)}
+                  className="flex w-full items-center justify-between gap-3 p-4 text-left"
+                >
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                      <span className="truncate">{q.fullName || "(no name)"}</span>
+                      {q.companyName && (
+                        <span className="truncate text-xs font-normal text-muted-foreground">
+                          · {q.companyName}
+                        </span>
+                      )}
+                    </div>
+                    <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+                      <span className="inline-flex items-center gap-1">
+                        <Mail className="h-3 w-3" /> {q.email || "—"}
+                      </span>
+                      {q.phone && (
+                        <span className="inline-flex items-center gap-1">
+                          <Phone className="h-3 w-3" /> {q.phone}
+                        </span>
+                      )}
+                      {q.serviceType && <span>· {q.serviceType}</span>}
+                      {q.packageName && <span>· {q.packageName}</span>}
+                    </div>
+                  </div>
+                  <div className="text-right text-[11px] text-muted-foreground">
+                    {q.createdAt ? new Date(q.createdAt).toLocaleString() : "—"}
+                  </div>
+                </button>
+                {isOpen && (
+                  <div className="border-t border-border p-4">
+                    <div className="grid gap-3 text-sm sm:grid-cols-2">
+                      <Detail label="Service">{q.serviceType}</Detail>
+                      <Detail label="Package">{q.packageName}</Detail>
+                      <Detail label="Billing">{q.billingCycle}</Detail>
+                      <Detail label="Budget">{q.budget}</Detail>
+                      <Detail label="Deadline">{q.deadline}</Detail>
+                    </div>
+                    {q.description && (
+                      <div className="mt-4">
+                        <div className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                          Project description
+                        </div>
+                        <p className="mt-1 whitespace-pre-wrap text-sm text-foreground">
+                          {q.description}
+                        </p>
+                      </div>
+                    )}
+                    <div className="mt-4 flex items-center gap-2">
+                      <a
+                        href={`mailto:${q.email}`}
+                        className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-xs hover:bg-muted"
+                      >
+                        <Mail className="h-3.5 w-3.5" /> Reply
+                      </a>
+                      <button
+                        onClick={() => q.id && handleDelete(q.id)}
+                        className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-xs text-muted-foreground hover:border-destructive hover:text-destructive"
+                      >
+                        <Trash2 className="h-3.5 w-3.5" /> Delete
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </SectionCard>
+  );
+}
+
+function Detail({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <div className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+        {label}
+      </div>
+      <div className="mt-0.5 text-sm text-foreground">{children || "—"}</div>
+    </div>
+  );
+}
