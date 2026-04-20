@@ -837,35 +837,6 @@ function CopyEditor({
           </Field>
         </div>
       </SectionCard>
-
-      <SectionCard title="Contact page & details">
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Field label="Hero title">
-            <TextInput
-              value={copy.contactHeroTitle}
-              onChange={(e) => set("contactHeroTitle", e.target.value)}
-            />
-          </Field>
-          <Field label="Hero subtitle">
-            <TextInput
-              value={copy.contactHeroSubtitle}
-              onChange={(e) => set("contactHeroSubtitle", e.target.value)}
-            />
-          </Field>
-          <Field label="Contact email">
-            <TextInput value={copy.contactEmail} onChange={(e) => set("contactEmail", e.target.value)} />
-          </Field>
-          <Field label="WhatsApp number (digits only, e.g. 27821234567)">
-            <TextInput
-              value={copy.whatsappNumber}
-              onChange={(e) => set("whatsappNumber", e.target.value.replace(/\D/g, ""))}
-            />
-          </Field>
-          <Field label="Location">
-            <TextInput value={copy.location} onChange={(e) => set("location", e.target.value)} />
-          </Field>
-        </div>
-      </SectionCard>
     </>
   );
 }
