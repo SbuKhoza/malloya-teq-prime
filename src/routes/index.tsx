@@ -131,11 +131,21 @@ function HomePage() {
             >
               <span className="badge-gold mb-3 inline-block">Popular</span>
               <h3 className="text-xl font-bold text-foreground">{pkg.name}</h3>
-              <div className="mt-3 mb-6">
-                <span className="text-3xl font-extrabold gold-gradient-text">
-                  R{pkg.monthlyPrice?.toLocaleString()}
-                </span>
-                <span className="text-muted-foreground">/mo</span>
+              <div className="mt-3 mb-6 space-y-1">
+                {pkg.buildPrice != null && (
+                  <div>
+                    <span className="text-3xl font-extrabold gold-gradient-text">
+                      R{pkg.buildPrice.toLocaleString()}
+                    </span>
+                    <span className="ml-1 text-xs text-muted-foreground">build</span>
+                  </div>
+                )}
+                <div>
+                  <span className="text-lg font-semibold text-foreground">
+                    R{pkg.monthlyPrice?.toLocaleString()}
+                  </span>
+                  <span className="text-muted-foreground">/mo hosting</span>
+                </div>
               </div>
               <ul className="mb-8 space-y-2">
                 {pkg.features.slice(0, 4).map((f) => (
