@@ -407,6 +407,7 @@ function PackagesEditor({
       id: `new-${Date.now()}`,
       name: "New Package",
       category: target === "app" ? "app" : "static",
+      buildPrice: target === "app" ? null : 0,
       monthlyPrice: target === "app" ? null : 499,
       annualPrice: target === "app" ? null : 4999,
       features: ["Feature 1"],
@@ -553,8 +554,17 @@ function PackageCardEditor({
         </button>
       </div>
 
-      <div className="mb-3 grid gap-3 sm:grid-cols-2">
-        <Field label="Monthly price (R)">
+      <div className="mb-3 grid gap-3 sm:grid-cols-3">
+        <Field label="Build price (R, once-off)">
+          <NumberInput
+            value={pkg.buildPrice ?? ""}
+            onChange={(e) =>
+              onChange({ buildPrice: e.target.value === "" ? null : Number(e.target.value) })
+            }
+            placeholder="empty = custom quote"
+          />
+        </Field>
+        <Field label="Monthly hosting (R)">
           <NumberInput
             value={pkg.monthlyPrice ?? ""}
             onChange={(e) =>
@@ -563,7 +573,7 @@ function PackageCardEditor({
             placeholder="empty = custom quote"
           />
         </Field>
-        <Field label="Annual price (R)">
+        <Field label="Annual hosting (R)">
           <NumberInput
             value={pkg.annualPrice ?? ""}
             onChange={(e) =>
@@ -591,8 +601,8 @@ function PackageCardEditor({
             onChange={(e) =>
               onChange(
                 e.target.checked
-                  ? { cmsMonthlyAddon: 200, cmsAnnualAddon: 2000, cmsFeatures: ["Admin dashboard"] }
-                  : { cmsMonthlyAddon: undefined, cmsAnnualAddon: undefined, cmsFeatures: undefined },
+                  ? { cmsBuildAddon: 0, cmsMonthlyAddon: 200, cmsAnnualAddon: 2000, cmsFeatures: ["Admin dashboard"] }
+                  : { cmsBuildAddon: undefined, cmsMonthlyAddon: undefined, cmsAnnualAddon: undefined, cmsFeatures: undefined },
               )
             }
           />
@@ -600,7 +610,13 @@ function PackageCardEditor({
         </label>
         {hasCms && (
           <>
-            <div className="mb-3 grid gap-3 sm:grid-cols-2">
+            <div className="mb-3 grid gap-3 sm:grid-cols-3">
+              <Field label="CMS build add-on (R)">
+                <NumberInput
+                  value={pkg.cmsBuildAddon ?? 0}
+                  onChange={(e) => onChange({ cmsBuildAddon: Number(e.target.value) })}
+                />
+              </Field>
               <Field label="CMS monthly add-on (R)">
                 <NumberInput
                   value={pkg.cmsMonthlyAddon ?? 0}
