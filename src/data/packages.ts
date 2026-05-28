@@ -2,9 +2,12 @@ export interface Package {
   id: string;
   name: string;
   category: "static" | "store" | "app";
+  /** One-time build/setup fee (R). */
+  buildPrice?: number | null;
   monthlyPrice: number | null;
   annualPrice: number | null;
   /** Optional CMS upgrade pricing — when set, the card shows a "with CMS" toggle. */
+  cmsBuildAddon?: number;
   cmsMonthlyAddon?: number;
   cmsAnnualAddon?: number;
   features: string[];
