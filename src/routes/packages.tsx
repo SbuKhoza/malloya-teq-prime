@@ -22,13 +22,11 @@ function PackageCard({ pkg }: { pkg: Package }) {
   const [isAnnual, setIsAnnual] = useState(false);
   const [withCms, setWithCms] = useState(false);
   const hasPricing = pkg.monthlyPrice !== null && pkg.annualPrice !== null;
-  const hasBuild = pkg.buildPrice !== null && pkg.buildPrice !== undefined;
   const hasCmsOption = pkg.cmsMonthlyAddon !== undefined && pkg.cmsAnnualAddon !== undefined;
 
-  const baseHosting = isAnnual ? pkg.annualPrice : pkg.monthlyPrice;
+  const basePrice = isAnnual ? pkg.annualPrice : pkg.monthlyPrice;
   const cmsAddon = isAnnual ? pkg.cmsAnnualAddon : pkg.cmsMonthlyAddon;
-  const finalHosting = withCms && cmsAddon ? (baseHosting ?? 0) + cmsAddon : baseHosting;
-  const finalBuild = withCms && pkg.cmsBuildAddon ? (pkg.buildPrice ?? 0) + pkg.cmsBuildAddon : pkg.buildPrice;
+  const finalPrice = withCms && cmsAddon ? (basePrice ?? 0) + cmsAddon : basePrice;
   const period = isAnnual ? "/yr" : "/mo";
 
   return (
@@ -38,29 +36,14 @@ function PackageCard({ pkg }: { pkg: Package }) {
 
       {hasPricing ? (
         <>
-          {hasBuild && (
-            <div className="mt-3 mb-2">
-              <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Build price</div>
-              <motion.span
-                key={`build-${finalBuild}`}
-                initial={{ opacity: 0, y: -4 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-4xl font-extrabold gold-gradient-text inline-block"
-              >
-                R{finalBuild!.toLocaleString()}
-              </motion.span>
-              <span className="ml-1 text-xs text-muted-foreground">once-off</span>
-            </div>
-          )}
-          <div className="mb-4">
-            <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Hosting fee</div>
+          <div className="mt-3 mb-4">
             <motion.span
-              key={`host-${finalHosting}-${period}`}
+              key={`${finalPrice}-${period}`}
               initial={{ opacity: 0, y: -4 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-2xl font-bold text-foreground inline-block"
+              className="text-4xl font-extrabold gold-gradient-text inline-block"
             >
-              R{finalHosting!.toLocaleString()}
+              R{finalPrice!.toLocaleString()}
             </motion.span>
             <span className="text-muted-foreground">{period}</span>
           </div>
