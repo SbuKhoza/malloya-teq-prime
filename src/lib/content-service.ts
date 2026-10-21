@@ -12,7 +12,6 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { getDb } from "./firebase";
-import { websitePackages, appPackages, includedBenefits, type Package } from "../data/packages";
 import { portfolioItems, type PortfolioItem } from "../data/portfolio";
 import { reviews, type Review } from "../data/reviews";
 
@@ -26,6 +25,7 @@ export interface PageCopy {
   contactHeroSubtitle: string;
   contactEmail: string;
   whatsappNumber: string;
+  phoneDisplay: string;
   location: string;
   contactCtaTitle: string;
   contactCtaSubtitle: string;
@@ -37,18 +37,19 @@ export interface PageCopy {
 }
 
 export const defaultPageCopy: PageCopy = {
-  homeHeroBadge: "South Africa's Premium Tech Partner",
-  homeHeroTitle: "Websites, Apps & Smart Business Systems",
+  homeHeroBadge: "Software & Automation Studio",
+  homeHeroTitle: "Building Tech, the Kasi Way.",
   homeHeroSubtitle:
-    "Helping businesses grow through websites, mobile apps, automation and custom software.",
-  servicesHeroTitle: "Digital Solutions That Drive Growth",
+    "Websites, mobile apps, automation and design — proudly born ekasi, built for businesses everywhere.",
+  servicesHeroTitle: "What We Build",
   servicesHeroSubtitle:
-    "From concept to launch, we build premium digital products that help South African businesses thrive.",
+    "Modern, responsive and user-friendly digital products — from websites and apps to automation that saves you time.",
   contactHeroTitle: "Get in Touch",
   contactHeroSubtitle: "Ready to start your project? We'd love to hear from you.",
-  contactEmail: "info@malloyateq.co.za",
-  whatsappNumber: "27000000000",
-  location: "South Africa",
+  contactEmail: "info@malloyagroup.co.za",
+  whatsappNumber: "27682602439",
+  phoneDisplay: "068 260 2439",
+  location: "Johannesburg, South Africa",
   contactCtaTitle: "Prefer a Detailed Quote?",
   contactCtaSubtitle: "Use our quote form to give us all the details about your project.",
   faqHeroTitle: "Frequently Asked Questions",
@@ -66,19 +67,16 @@ export interface FAQItem {
 
 export const defaultFaqs: FAQItem[] = [
   { q: "How long does it take to build a website?", a: "Depending on complexity, static websites take 1-2 weeks, dynamic sites 2-4 weeks, and e-commerce stores 3-6 weeks. We'll give you an accurate timeline during the quote process." },
-  { q: "Do you offer ongoing support after launch?", a: "Yes! All our packages include initial support, and we offer affordable maintenance plans for ongoing updates, backups, and security monitoring." },
-  { q: "Can I update my website myself?", a: "Our CMS packages include an admin dashboard where you can easily update content, add blog posts, and manage your site without any coding knowledge." },
+  { q: "Do you offer ongoing support after launch?", a: "Yes! All our projects include initial support, and we offer affordable maintenance plans for ongoing updates, backups, and security monitoring." },
+  { q: "Can I update my website myself?", a: "We can build your site on a content management system with an admin dashboard where you can easily update content, add blog posts, and manage your site without any coding knowledge." },
   { q: "What payment methods do you accept?", a: "We accept EFT, bank transfers, and various online payment methods. We offer flexible payment plans for larger projects." },
-  { q: "Do you work with businesses outside South Africa?", a: "Absolutely! While we're proudly South African, we work with businesses worldwide. Our pricing is in ZAR but we can provide quotes in other currencies." },
-  { q: "What's included in the free hosting?", a: "Every website package includes free monthly hosting, a free .co.za domain of your choice, and 3 professional email addresses. Other domain extensions have separate pricing." },
+  { q: "Do you work with businesses outside South Africa?", a: "Absolutely! While we're proudly born ekasi, we work with businesses worldwide. Our pricing is in ZAR but we can provide quotes in other currencies." },
+  { q: "What's included with hosting?", a: "Our hosting covers fast, secure and reliable hosting for your business, and we can bundle a .co.za domain, SSL and professional email addresses with your project." },
   { q: "Can you build a mobile app for both Android and iOS?", a: "Yes! We build native Android and iOS apps, as well as cross-platform apps that work on both systems from a single codebase." },
-  { q: "What if I need something custom that's not in your packages?", a: "No problem — we specialize in custom solutions. Request a quote and describe your requirements. We'll create a tailored proposal for your project." },
+  { q: "What if I need something custom?", a: "No problem — we specialize in custom solutions. Request a quote and describe your requirements. We'll create a tailored proposal for your project." },
 ];
 
 export interface ContentDoc {
-  websitePackages: Package[];
-  appPackages: Package[];
-  includedBenefits: string[];
   portfolio: PortfolioItem[];
   reviews: Review[];
   copy: PageCopy;
@@ -86,9 +84,6 @@ export interface ContentDoc {
 }
 
 export const defaultContent: ContentDoc = {
-  websitePackages,
-  appPackages,
-  includedBenefits,
   portfolio: portfolioItems,
   reviews,
   copy: defaultPageCopy,
@@ -99,9 +94,6 @@ const CONTENT_DOC = ["content", "site"] as const;
 
 function mergeContent(data: Partial<ContentDoc>): ContentDoc {
   return {
-    websitePackages: data.websitePackages ?? defaultContent.websitePackages,
-    appPackages: data.appPackages ?? defaultContent.appPackages,
-    includedBenefits: data.includedBenefits ?? defaultContent.includedBenefits,
     portfolio: data.portfolio ?? defaultContent.portfolio,
     reviews: data.reviews ?? defaultContent.reviews,
     copy: { ...defaultContent.copy, ...(data.copy ?? {}) },
@@ -152,8 +144,8 @@ export async function saveContent(content: ContentDoc): Promise<void> {
 export interface QuoteSubmission {
   id?: string;
   serviceType: string;
-  packageName: string;
-  billingCycle: string;
+  packageName?: string;
+  billingCycle?: string;
   fullName: string;
   companyName: string;
   email: string;

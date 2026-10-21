@@ -4,14 +4,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@font-face {
-  font-family: 'Plus Jakarta Sans';
-  font-style: normal;
-  font-weight: 200 800;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_qU79TR_V.woff2) format('woff2');
-}
-
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -20,7 +12,8 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Nunito', system-ui, -apple-system, sans-serif;
+  --font-display: 'Baloo 2', 'Nunito', system-ui, sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -61,49 +54,56 @@
   --color-glass: var(--glass);
   --color-glass-border: var(--glass-border);
   --color-surface: var(--surface);
+  --color-navy: var(--navy);
+  --color-navy-foreground: var(--navy-foreground);
+  --color-sun: var(--sun);
 }
 
 :root {
-  --radius: 0.75rem;
-  --background: oklch(0.985 0 0);
-  --foreground: oklch(0.12 0.02 260);
+  --radius: 1rem;
+  /* Malloya Group brand — warm cream, deep navy, teal, orange, purple */
+  --background: oklch(0.968 0.014 85);
+  --foreground: oklch(0.27 0.06 250);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.12 0.02 260);
+  --card-foreground: oklch(0.27 0.06 250);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.12 0.02 260);
-  --primary: oklch(0.8 0.06 70);
+  --popover-foreground: oklch(0.27 0.06 250);
+  --primary: oklch(0.62 0.1 195);
   --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.55 0.1 210);
+  --secondary: oklch(0.67 0.16 45);
   --secondary-foreground: oklch(1 0 0);
-  --muted: oklch(0.955 0.005 260);
-  --muted-foreground: oklch(0.45 0.02 260);
-  --accent: oklch(0.8 0.06 70);
+  --muted: oklch(0.94 0.014 85);
+  --muted-foreground: oklch(0.46 0.04 250);
+  --accent: oklch(0.67 0.16 45);
   --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0 0 0 / 8%);
-  --input: oklch(0 0 0 / 6%);
-  --ring: oklch(0.8 0.06 70);
-  --gold: oklch(0.8 0.06 70);
+  --border: oklch(0.27 0.06 250 / 14%);
+  --input: oklch(0.27 0.06 250 / 10%);
+  --ring: oklch(0.62 0.1 195);
+  --gold: oklch(0.67 0.16 45);
   --gold-foreground: oklch(1 0 0);
-  --ice: oklch(0.55 0.1 210);
+  --ice: oklch(0.52 0.13 305);
   --ice-foreground: oklch(1 0 0);
-  --glass: oklch(1 0 0 / 70%);
-  --glass-border: oklch(0 0 0 / 8%);
-  --surface: oklch(0.965 0.003 260);
-  --chart-1: oklch(0.55 0.12 55);
-  --chart-2: oklch(0.55 0.1 210);
-  --chart-3: oklch(0.5 0.15 300);
-  --chart-4: oklch(0.6 0.1 150);
+  --glass: oklch(1 0 0 / 88%);
+  --glass-border: oklch(0.27 0.06 250 / 14%);
+  --surface: oklch(0.945 0.018 85);
+  --navy: oklch(0.27 0.06 250);
+  --navy-foreground: oklch(0.97 0.014 85);
+  --sun: oklch(0.82 0.13 85);
+  --chart-1: oklch(0.62 0.1 195);
+  --chart-2: oklch(0.67 0.16 45);
+  --chart-3: oklch(0.52 0.13 305);
+  --chart-4: oklch(0.82 0.13 85);
   --chart-5: oklch(0.55 0.15 30);
-  --sidebar: oklch(0.975 0.003 260);
-  --sidebar-foreground: oklch(0.12 0.02 260);
-  --sidebar-primary: oklch(0.8 0.06 70);
+  --sidebar: oklch(0.95 0.014 85);
+  --sidebar-foreground: oklch(0.27 0.06 250);
+  --sidebar-primary: oklch(0.62 0.1 195);
   --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.955 0.005 260);
-  --sidebar-accent-foreground: oklch(0.12 0.02 260);
-  --sidebar-border: oklch(0 0 0 / 8%);
-  --sidebar-ring: oklch(0.8 0.06 70);
+  --sidebar-accent: oklch(0.94 0.014 85);
+  --sidebar-accent-foreground: oklch(0.27 0.06 250);
+  --sidebar-border: oklch(0.27 0.06 250 / 14%);
+  --sidebar-ring: oklch(0.62 0.1 195);
 }
 
 @layer base {
@@ -119,115 +119,173 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+  }
+
   ::selection {
-    background-color: oklch(0.85 0.06 70 / 35%);
-    color: oklch(0.15 0.02 260);
+    background-color: oklch(0.62 0.1 195 / 30%);
+    color: oklch(0.27 0.06 250);
   }
 }
 
 @layer components {
   .glass-card {
-    background: var(--color-glass);
-    border: 1px solid var(--color-glass-border);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: var(--radius-xl);
+    background: var(--color-card);
+    border: 2px solid var(--color-navy);
+    border-radius: 1.25rem;
+    box-shadow: 5px 5px 0 oklch(0.27 0.06 250 / 14%);
   }
 
   .glass-card-hover {
-    background: var(--color-glass);
-    border: 1px solid var(--color-glass-border);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: var(--radius-xl);
-    transition: all 0.3s ease;
+    background: var(--color-card);
+    border: 2px solid var(--color-navy);
+    border-radius: 1.25rem;
+    box-shadow: 5px 5px 0 oklch(0.27 0.06 250 / 14%);
+    transition: all 0.25s ease;
   }
   .glass-card-hover:hover {
-    background: oklch(0 0 0 / 3%);
-    border-color: oklch(0 0 0 / 12%);
-    transform: translateY(-4px);
-    box-shadow: 0 20px 60px -15px oklch(0.8 0.06 70 / 22%);
+    transform: translate(-3px, -3px);
+    box-shadow: 8px 8px 0 oklch(0.67 0.16 45 / 35%);
+    border-color: var(--color-navy);
   }
 
   .gold-gradient-text {
-    background: linear-gradient(135deg, oklch(0.78 0.07 65), oklch(0.85 0.05 75));
+    background: linear-gradient(120deg, oklch(0.67 0.16 45), oklch(0.8 0.14 70));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .ice-gradient-text {
-    background: linear-gradient(135deg, oklch(0.45 0.12 210), oklch(0.55 0.1 220));
+    background: linear-gradient(120deg, oklch(0.62 0.1 195), oklch(0.52 0.13 305));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .btn-gold {
-    background: linear-gradient(135deg, oklch(0.82 0.06 70), oklch(0.78 0.07 65));
+    background: linear-gradient(135deg, oklch(0.7 0.16 45), oklch(0.64 0.17 40));
     color: oklch(1 0 0);
-    font-weight: 600;
-    border-radius: var(--radius-xl);
+    font-weight: 700;
+    border-radius: 9999px;
     padding: 0.75rem 2rem;
-    transition: all 0.3s ease;
-    border: none;
+    transition: all 0.2s ease;
+    border: 2px solid var(--color-navy);
+    box-shadow: 4px 4px 0 var(--color-navy);
     cursor: pointer;
+    display: inline-block;
   }
   .btn-gold:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 40px -10px oklch(0.8 0.06 70 / 55%);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--color-navy);
+  }
+  .btn-gold:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--color-navy);
   }
 
   .btn-outline-gold {
     background: transparent;
-    color: oklch(0.65 0.08 65);
-    font-weight: 600;
-    border-radius: var(--radius-xl);
+    color: var(--color-navy);
+    font-weight: 700;
+    border-radius: 9999px;
     padding: 0.75rem 2rem;
-    transition: all 0.3s ease;
-    border: 1px solid oklch(0.8 0.06 70 / 55%);
+    transition: all 0.2s ease;
+    border: 2px solid var(--color-primary);
+    box-shadow: 4px 4px 0 oklch(0.62 0.1 195 / 25%);
     cursor: pointer;
+    display: inline-block;
   }
   .btn-outline-gold:hover {
-    background: oklch(0.8 0.06 70 / 12%);
-    border-color: oklch(0.8 0.06 70);
-    transform: translateY(-2px);
+    background: oklch(0.62 0.1 195 / 12%);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 oklch(0.62 0.1 195 / 25%);
   }
 
   .section-padding {
-    padding: 6rem 1.5rem;
+    padding: 5rem 1.5rem;
   }
 
   .glow-gold {
-    box-shadow: 0 0 80px -20px oklch(0.8 0.06 70 / 28%);
+    box-shadow: 8px 8px 0 oklch(0.67 0.16 45 / 30%);
   }
 
   .glow-ice {
-    box-shadow: 0 0 80px -20px oklch(0.55 0.1 210 / 15%);
+    box-shadow: 8px 8px 0 oklch(0.62 0.1 195 / 30%);
   }
 
+  /* Navy "brush banner" pill — like the flyer's OUR SERVICES / BORN EKASI banners */
   .badge-gold {
-    background: oklch(0.8 0.06 70 / 14%);
-    color: oklch(0.6 0.08 65);
-    border: 1px solid oklch(0.8 0.06 70 / 25%);
+    background: var(--color-navy);
+    color: var(--color-navy-foreground);
+    border: none;
     border-radius: 9999px;
-    padding: 0.25rem 1rem;
+    padding: 0.4rem 1.25rem;
     font-size: 0.75rem;
-    font-weight: 600;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
+    box-shadow: 3px 3px 0 oklch(0.67 0.16 45 / 45%);
+    display: inline-block;
   }
 
   .badge-ice {
-    background: oklch(0.55 0.1 210 / 10%);
-    color: oklch(0.45 0.12 210);
-    border: 1px solid oklch(0.55 0.1 210 / 15%);
+    background: oklch(0.62 0.1 195 / 15%);
+    color: oklch(0.45 0.09 195);
+    border: 2px solid oklch(0.62 0.1 195 / 40%);
     border-radius: 9999px;
     padding: 0.25rem 1rem;
     font-size: 0.75rem;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    display: inline-block;
+  }
+
+  /* Big navy CTA band */
+  .cta-navy {
+    background: var(--color-navy);
+    color: var(--color-navy-foreground);
+    border-radius: 1.5rem;
+    border: 2px solid var(--color-navy);
+    box-shadow: 8px 8px 0 oklch(0.67 0.16 45 / 40%);
+  }
+  .cta-navy h2,
+  .cta-navy h3 {
+    color: var(--color-navy-foreground);
+  }
+
+  /* Rounded colored icon blob (flyer-style service icons) */
+  .icon-blob {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1.25rem;
+    border: 2px solid var(--color-navy);
+    box-shadow: 3px 3px 0 oklch(0.27 0.06 250 / 15%);
+  }
+
+  /* Small platform chip (iOS / ANDROID) */
+  .chip {
+    display: inline-block;
+    border-radius: 9999px;
+    padding: 0.1rem 0.6rem;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .chip-ios {
+    background: var(--color-navy);
+    color: var(--color-navy-foreground);
+  }
+  .chip-android {
+    background: oklch(0.62 0.1 195);
+    color: oklch(1 0 0);
   }
 }
 
@@ -242,6 +300,6 @@
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px oklch(0.8 0.06 70 / 22%); }
-  50% { box-shadow: 0 0 40px oklch(0.8 0.06 70 / 38%); }
+  0%, 100% { box-shadow: 0 0 20px oklch(0.67 0.16 45 / 25%); }
+  50% { box-shadow: 0 0 40px oklch(0.67 0.16 45 / 40%); }
 }

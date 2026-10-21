@@ -10,8 +10,8 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold gold-gradient-text">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
+        <h1 className="text-7xl font-extrabold gold-gradient-text">404</h1>
+        <h2 className="mt-4 text-xl font-semibold text-foreground">Haibo — page not found</h2>
         <p className="mt-2 text-sm text-muted-foreground">
           The page you're looking for doesn't exist or has been moved.
         </p>
@@ -30,20 +30,23 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Malloya Teq — Premium Web & App Development" },
-      { name: "description", content: "South African technology company offering premium website development, mobile apps, software systems, automation, hosting and more." },
+      { title: "Malloya Teq — Building Tech, the Kasi Way" },
+      { name: "description", content: "South African software & automation studio. Websites, mobile apps, automation, hosting, UX/UI design and e-commerce — proudly born ekasi." },
       { name: "author", content: "Malloya Teq" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:title", content: "Malloya Teq — Premium Web & App Development" },
-      { name: "twitter:title", content: "Malloya Teq — Premium Web & App Development" },
-      { property: "og:description", content: "South African technology company offering premium website development, mobile apps, software systems, automation, hosting and more." },
-      { name: "twitter:description", content: "South African technology company offering premium website development, mobile apps, software systems, automation, hosting and more." },
+      { property: "og:title", content: "Malloya Teq — Building Tech, the Kasi Way" },
+      { name: "twitter:title", content: "Malloya Teq — Building Tech, the Kasi Way" },
+      { property: "og:description", content: "Websites, mobile apps, automation and design — proudly born ekasi, built for businesses everywhere." },
+      { name: "twitter:description", content: "Websites, mobile apps, automation and design — proudly born ekasi, built for businesses everywhere." },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/83ad3a5b-efe8-441a-a877-38b128a2def5/id-preview-452a0445--f8e15e81-c53c-4f20-b686-184c2f201e09.lovable.app-1776486969063.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/83ad3a5b-efe8-441a-a877-38b128a2def5/id-preview-452a0445--f8e15e81-c53c-4f20-b686-184c2f201e09.lovable.app-1776486969063.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" },
     ],
   }),
   shellComponent: RootShell,
