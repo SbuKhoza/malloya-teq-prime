@@ -5,55 +5,57 @@ export interface PortfolioItem {
   screenshot: string;
   url: string;
   description: string;
+  /** Platform labels shown as chips, e.g. ["iOS", "ANDROID"] */
+  platforms?: string[];
+  /** Icon name from lucide-react used for the product badge */
+  icon?: "MapPin" | "Truck" | "Search" | "Store";
+  /** Brand color for the icon blob */
+  color?: "teal" | "orange" | "purple" | "red";
 }
 
 export const portfolioItems: PortfolioItem[] = [
   {
-    id: "1",
-    name: "Luxe Properties",
+    id: "xplore-soweto",
+    name: "Xplore Soweto",
     category: "dynamic",
-    screenshot: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
+    screenshot: "https://images.unsplash.com/photo-1561037404-61cd46fb660b?w=800&h=600&fit=crop",
     url: "#",
-    description: "Premium real estate platform with property listings",
+    description: "Discover Soweto — routes, stories & hidden spots.",
+    platforms: ["iOS", "ANDROID"],
+    icon: "MapPin",
+    color: "teal",
   },
   {
-    id: "2",
-    name: "Safari Outfitters",
-    category: "store",
-    screenshot: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
-    url: "#",
-    description: "E-commerce store for outdoor adventure gear",
-  },
-  {
-    id: "3",
-    name: "Cape Consulting",
-    category: "static",
-    screenshot: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&h=400&fit=crop",
-    url: "#",
-    description: "Corporate consulting firm website",
-  },
-  {
-    id: "4",
-    name: "Joburg Eats",
+    id: "fleetcounta",
+    name: "Fleetcounta",
     category: "dynamic",
-    screenshot: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=400&fit=crop",
+    screenshot: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&h=600&fit=crop",
     url: "#",
-    description: "Restaurant ordering and delivery platform",
+    description: "Fleet & driver cost calculator.",
+    platforms: ["iOS", "ANDROID"],
+    icon: "Truck",
+    color: "orange",
   },
   {
-    id: "5",
-    name: "Durban Fitness",
-    category: "static",
-    screenshot: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=400&fit=crop",
+    id: "aislespy",
+    name: "Aislespy",
+    category: "dynamic",
+    screenshot: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&h=600&fit=crop",
     url: "#",
-    description: "Fitness studio with class booking",
+    description: "Smart shopping lists with running totals.",
+    platforms: ["iOS", "ANDROID"],
+    icon: "Search",
+    color: "purple",
   },
   {
-    id: "6",
-    name: "Pretoria Threads",
+    id: "malloya-store",
+    name: "Malloya Store",
     category: "store",
-    screenshot: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=400&fit=crop",
+    screenshot: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop",
     url: "#",
-    description: "Fashion dropshipping store",
+    description: "Quality digital products & online store.",
+    platforms: [],
+    icon: "Store",
+    color: "red",
   },
 ];
