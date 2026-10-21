@@ -1,6 +1,19 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { Globe, Smartphone, Settings, Cloud, Check, Star, ShieldCheck, MapPin, Wallet, LifeBuoy } from "lucide-react";
+import {
+  Globe,
+  Zap,
+  Cloud,
+  Palette,
+  ShoppingBag,
+  Check,
+  Star,
+  ShieldCheck,
+  MapPin,
+  Wallet,
+  LifeBuoy,
+  type LucideIcon,
+} from "lucide-react";
 import { Section, SectionHeader } from "../components/Section";
 import { useContent } from "../lib/use-content";
 import heroIllustration from "../assets/hero-illustration.png";
@@ -8,43 +21,58 @@ import heroIllustration from "../assets/hero-illustration.png";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Malloya Teq — Websites, Apps & Smart Business Systems" },
-      { name: "description", content: "Helping businesses grow through websites, mobile apps, automation and custom software. Premium South African tech company." },
-      { property: "og:title", content: "Malloya Teq — Websites, Apps & Smart Business Systems" },
-      { property: "og:description", content: "Helping businesses grow through websites, mobile apps, automation and custom software." },
+      { title: "Malloya Teq — Building Tech, the Kasi Way" },
+      { name: "description", content: "Websites, mobile apps, automation, hosting, UX/UI design and e-commerce. South African software & automation studio — proudly born ekasi." },
+      { property: "og:title", content: "Malloya Teq — Building Tech, the Kasi Way" },
+      { property: "og:description", content: "Websites, mobile apps, automation and design — proudly born ekasi, built for businesses everywhere." },
     ],
   }),
   component: HomePage,
 });
 
 const services = [
-  { Icon: Globe, title: "Website Development", desc: "Static sites, dynamic CMS, online stores & dropshipping platforms." },
-  { Icon: Smartphone, title: "Mobile App Development", desc: "Android, iOS & cross-platform apps built for performance." },
-  { Icon: Settings, title: "Software Systems", desc: "LMS, automation, booking, inventory & custom internal systems." },
-  { Icon: Cloud, title: "Hosting & Domains", desc: "Web hosting, domain setup, SSL, business emails & maintenance." },
-];
+  { Icon: Globe, title: "Website & Mobile App Development", desc: "Modern, responsive websites and apps for Android, iOS and cross-platform.", bg: "oklch(0.62 0.1 195)" },
+  { Icon: Zap, title: "Automation & Workflow Development", desc: "Automations, LMS, booking and inventory systems that save you hours every week.", bg: "oklch(0.67 0.16 45)" },
+  { Icon: Cloud, title: "Hosting", desc: "Fast, secure and reliable hosting — domains, SSL and business emails, sorted.", bg: "oklch(0.52 0.13 305)" },
+  { Icon: Palette, title: "UX/UI Design", desc: "Clean, modern and user-friendly interfaces designed for real people.", bg: "oklch(0.82 0.13 85)" },
+  { Icon: ShoppingBag, title: "E-commerce Development", desc: "Online stores and dropshipping platforms ready to sell from day one.", bg: "oklch(0.62 0.1 195)" },
+] as const;
 
 const whyUs = [
   { Icon: ShieldCheck, title: "Premium Quality", desc: "Every project is crafted to the highest standards." },
-  { Icon: MapPin, title: "South African Focused", desc: "We understand the local market and business needs." },
-  { Icon: Wallet, title: "Affordable Packages", desc: "Competitive pricing without compromising quality." },
+  { Icon: MapPin, title: "Proudly Ekasi", desc: "Built in Soweto, for South African businesses and beyond." },
+  { Icon: Wallet, title: "Fair Pricing", desc: "Great value without compromising quality." },
   { Icon: LifeBuoy, title: "Ongoing Support", desc: "We don't disappear after launch — we're here to help." },
-];
+] as const;
+
+const projectIcon: Record<string, LucideIcon> = {
+  MapPin,
+  Truck: MapPin,
+  Search: MapPin,
+  Store: ShoppingBag,
+};
+
+const projectColor: Record<string, string> = {
+  teal: "oklch(0.62 0.1 195)",
+  orange: "oklch(0.67 0.16 45)",
+  purple: "oklch(0.52 0.13 305)",
+  red: "oklch(0.6 0.18 30)",
+};
 
 function HomePage() {
-  const { websitePackages, reviews, copy } = useContent();
+  const { reviews, copy, portfolio } = useContent();
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden px-6 pb-20 pt-12 md:pb-28 md:pt-16">
+      <section className="relative overflow-hidden px-6 pb-16 pt-10 md:pb-24 md:pt-14">
         <div className="absolute inset-0 overflow-hidden">
           <div
-            className="absolute -top-40 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full opacity-25 blur-[120px]"
-            style={{ background: "radial-gradient(circle, oklch(0.85 0.06 65), transparent 70%)" }}
+            className="absolute -top-32 left-1/4 h-[420px] w-[420px] rounded-full opacity-20 blur-[110px]"
+            style={{ background: "radial-gradient(circle, oklch(0.62 0.1 195), transparent 70%)" }}
           />
           <div
-            className="absolute -bottom-20 right-0 h-[400px] w-[400px] rounded-full opacity-20 blur-[100px]"
-            style={{ background: "radial-gradient(circle, oklch(0.85 0.06 210), transparent 70%)" }}
+            className="absolute top-10 right-0 h-[380px] w-[380px] rounded-full opacity-20 blur-[100px]"
+            style={{ background: "radial-gradient(circle, oklch(0.67 0.16 45), transparent 70%)" }}
           />
         </div>
 
@@ -56,18 +84,18 @@ function HomePage() {
             className="text-center md:text-left"
           >
             <span className="badge-gold mb-6 inline-block">{copy.homeHeroBadge}</span>
-            <h1 className="text-3xl font-extrabold leading-tight tracking-tight md:text-5xl">
+            <h1 className="text-4xl font-extrabold leading-tight tracking-tight md:text-5xl lg:text-[3.4rem]">
               {copy.homeHeroTitle}
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-base text-muted-foreground md:mx-0 md:text-lg">
               {copy.homeHeroSubtitle}
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row md:justify-start">
-              <Link to="/quote" className="btn-gold inline-block text-base no-underline">
-                Request Quote
+              <Link to="/quote" className="btn-gold text-base no-underline">
+                Get a Quote
               </Link>
-              <Link to="/portfolio" className="btn-outline-gold inline-block text-base no-underline">
-                View Work
+              <Link to="/portfolio" className="btn-outline-gold text-base no-underline">
+                See Our Work
               </Link>
             </div>
           </motion.div>
@@ -79,78 +107,97 @@ function HomePage() {
           >
             <img
               src={heroIllustration}
-              alt="Malloya Teq — websites, apps and dashboards"
-              width={1280}
+              alt="Malloya Teq — building tech, the kasi way"
+              width={1024}
               height={1024}
-              className="mx-auto w-full max-w-lg md:max-w-none md:scale-110 lg:scale-125"
+              className="mx-auto w-full max-w-md md:max-w-none lg:scale-110"
             />
           </motion.div>
         </div>
       </section>
 
-      {/* Services Overview */}
+      {/* Services */}
       <Section>
-        <SectionHeader badge="What We Do" title="Our Services" description="End-to-end digital solutions for businesses of all sizes." />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <SectionHeader badge="What We Do" title="Our Services" description="Modern, responsive and user-friendly digital products for businesses of all sizes." />
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((s, i) => (
             <motion.div
               key={s.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="glass-card-hover p-8 text-center"
+              transition={{ delay: i * 0.08, duration: 0.5 }}
+              className="glass-card-hover p-8"
             >
-              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
-                <s.Icon className="h-6 w-6 text-primary" strokeWidth={1.75} />
+              <div
+                className="icon-blob mb-4 h-14 w-14 text-white"
+                style={{ background: s.bg }}
+              >
+                <s.Icon className="h-7 w-7" strokeWidth={2} />
               </div>
-              <h3 className="mb-2 text-lg font-semibold text-foreground">{s.title}</h3>
+              <h3 className="mb-2 text-lg font-bold text-foreground">{s.title}</h3>
               <p className="text-sm text-muted-foreground">{s.desc}</p>
             </motion.div>
           ))}
         </div>
         <div className="mt-10 text-center">
-          <Link to="/services" className="btn-outline-gold inline-block text-sm no-underline">
+          <Link to="/services" className="btn-outline-gold text-sm no-underline">
             View All Services →
           </Link>
         </div>
       </Section>
 
-      {/* Packages Preview */}
+      {/* Featured Projects */}
       <Section className="!bg-surface">
-        <SectionHeader badge="Pricing" title="Packages for Every Business" description="Flexible monthly and annual plans starting from R399/month." />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {websitePackages.filter((p) => p.popular).map((pkg, i) => (
-            <motion.div
-              key={pkg.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="glass-card-hover relative p-8"
-            >
-              <span className="badge-gold mb-3 inline-block">Popular</span>
-              <h3 className="text-xl font-bold text-foreground">{pkg.name}</h3>
-              <div className="mt-3 mb-6">
-                <span className="text-3xl font-extrabold gold-gradient-text">
-                  R{pkg.monthlyPrice?.toLocaleString()}
-                </span>
-                <span className="text-muted-foreground">/mo</span>
-              </div>
-              <ul className="mb-8 space-y-2">
-                {pkg.features.slice(0, 4).map((f) => (
-                  <li key={f} className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Check className="h-4 w-4 shrink-0 text-primary" strokeWidth={2.5} />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
+        <SectionHeader badge="Featured Projects" title="Built Born Ekasi" description="Products we've designed, built and shipped — available on iOS and Android." />
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {portfolio.map((item, i) => {
+            const Icon = projectIcon[item.icon ?? "MapPin"] ?? MapPin;
+            const bg = projectColor[item.color ?? "teal"] ?? projectColor.teal;
+            return (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08, duration: 0.5 }}
+                className="glass-card-hover group overflow-hidden"
+              >
+                <div className="relative aspect-video overflow-hidden">
+                  <img
+                    src={item.screenshot}
+                    alt={item.name}
+                    width={800}
+                    height={600}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-6">
+                  <div className="mb-3 flex items-center gap-3">
+                    <div className="icon-blob h-10 w-10 text-white" style={{ background: bg }}>
+                      <Icon className="h-5 w-5" strokeWidth={2} />
+                    </div>
+                    <h3 className="text-lg font-bold text-foreground">{item.name}</h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground">{item.description}</p>
+                  {item.platforms && item.platforms.length > 0 && (
+                    <div className="mt-3 flex gap-1.5">
+                      {item.platforms.map((p) => (
+                        <span key={p} className={p === "iOS" ? "chip chip-ios" : "chip chip-android"}>
+                          {p}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
         <div className="mt-10 text-center">
-          <Link to="/packages" className="btn-gold inline-block text-sm no-underline">
-            View All Packages →
+          <Link to="/portfolio" className="btn-gold text-sm no-underline">
+            Explore Our Projects →
           </Link>
         </div>
       </Section>
@@ -168,10 +215,10 @@ function HomePage() {
               transition={{ delay: i * 0.1, duration: 0.5 }}
               className="glass-card p-8"
             >
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
-                <item.Icon className="h-6 w-6 text-primary" strokeWidth={1.75} />
+              <div className="icon-blob mb-4 h-12 w-12 bg-primary text-white">
+                <item.Icon className="h-6 w-6" strokeWidth={2} />
               </div>
-              <h3 className="mb-2 text-lg font-semibold text-foreground">{item.title}</h3>
+              <h3 className="mb-2 text-lg font-bold text-foreground">{item.title}</h3>
               <p className="text-sm text-muted-foreground">{item.desc}</p>
             </motion.div>
           ))}
@@ -193,15 +240,15 @@ function HomePage() {
             >
               <div className="mb-4 flex gap-1">
                 {Array.from({ length: review.rating }).map((_, j) => (
-                  <Star key={j} className="h-5 w-5 fill-primary text-primary" />
+                  <Star key={j} className="h-5 w-5 fill-secondary text-secondary" />
                 ))}
               </div>
               <p className="mb-6 text-sm leading-relaxed text-muted-foreground">"{review.text}"</p>
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/20 text-sm font-semibold text-primary">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-navy text-sm font-bold text-navy-foreground">
                   {review.avatar}
                 </div>
-                <span className="text-sm font-medium text-foreground">{review.name}</span>
+                <span className="text-sm font-semibold text-foreground">{review.name}</span>
               </div>
             </motion.div>
           ))}
@@ -210,20 +257,31 @@ function HomePage() {
 
       {/* CTA */}
       <Section>
-        <div className="glass-card glow-gold p-12 text-center md:p-20">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-            Ready to Build Something <span className="gold-gradient-text">Amazing</span>?
+        <div className="cta-navy relative overflow-hidden p-12 text-center md:p-20">
+          <div
+            className="absolute -right-20 -top-20 h-64 w-64 rounded-full opacity-20 blur-[80px]"
+            style={{ background: "radial-gradient(circle, oklch(0.67 0.16 45), transparent 70%)" }}
+          />
+          <span className="badge-gold mb-6 inline-block !bg-secondary" style={{ boxShadow: "3px 3px 0 oklch(1 0 0 / 25%)" }}>
+            Born Ekasi!
+          </span>
+          <h2 className="text-3xl font-extrabold tracking-tight md:text-5xl">
+            Ready to Build Something <span className="text-sun">Amazing</span>?
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
+          <p className="mx-auto mt-4 max-w-xl text-lg text-navy-foreground/75">
             Get a free consultation and let's bring your digital vision to life.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link to="/quote" className="btn-gold inline-block text-base no-underline">
-              Request Quote
+            <Link to="/quote" className="btn-gold text-base no-underline">
+              Get a Quote
             </Link>
-            <Link to="/contact" className="btn-outline-gold inline-block text-base no-underline">
-              Contact Us
-            </Link>
+            <a
+              href="tel:0682602439"
+              className="btn-outline-gold !border-secondary !text-white text-base no-underline"
+              style={{ boxShadow: "4px 4px 0 oklch(0.67 0.16 45 / 45%)" }}
+            >
+              Call 068 260 2439
+            </a>
           </div>
         </div>
       </Section>
