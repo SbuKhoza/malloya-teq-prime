@@ -16,10 +16,10 @@ export function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
-      <div className="mx-4 mt-4 rounded-2xl border-2 border-navy bg-card" style={{ boxShadow: "4px 4px 0 oklch(0.27 0.06 250 / 18%)" }}>
+      <div className="mx-4 mt-4 rounded-2xl border border-white/60 bg-white/70 backdrop-blur-xl" style={{ boxShadow: "0 18px 40px -18px oklch(0.27 0.06 250 / 30%)" }}>
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3.5">
           <Link to="/" className="flex items-center gap-2.5 no-underline">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-primary-foreground" style={{ boxShadow: "3px 3px 0 oklch(0.27 0.06 250 / 18%)" }}>
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-primary-foreground" style={{ boxShadow: "0 10px 22px -8px oklch(0.62 0.1 195 / 60%)" }}>
               <span className="text-sm font-extrabold">MT</span>
             </div>
             <span className="font-display text-lg font-bold text-foreground">
@@ -49,7 +49,7 @@ export function Header() {
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-navy text-foreground transition-colors hover:bg-muted lg:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/60 bg-white/60 text-foreground transition-colors hover:bg-white/90 lg:hidden"
             aria-label="Toggle menu"
           >
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -74,8 +74,8 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="mx-4 mt-2 rounded-2xl border-2 border-navy bg-card p-4 lg:hidden"
-            style={{ boxShadow: "4px 4px 0 oklch(0.27 0.06 250 / 18%)" }}
+            className="mx-4 mt-2 rounded-2xl border border-white/60 bg-white/80 p-4 backdrop-blur-xl lg:hidden"
+            style={{ boxShadow: "0 18px 40px -18px oklch(0.27 0.06 250 / 30%)" }}
           >
             <nav className="flex flex-col gap-1">
               {navLinks.map((link) => (
