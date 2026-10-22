@@ -1,116 +1,122 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { Section, SectionHeader } from "../components/Section";
+import { MapPin, ShoppingBag } from "lucide-react";
+import { Section } from "../components/Section";
 import { useContent } from "../lib/use-content";
+import type { LucideIcon } from "lucide-react";
 
 export const Route = createFileRoute("/portfolio")({
   head: () => ({
     meta: [
-      { title: "Portfolio — Malloya Teq" },
-      { name: "description", content: "View our live websites and projects. Premium web development portfolio from South Africa." },
-      { property: "og:title", content: "Portfolio — Malloya Teq" },
-      { property: "og:description", content: "View our live websites and projects." },
+      { title: "Our Work — Malloya Teq" },
+      { name: "description", content: "Featured projects from Malloya Teq — apps and platforms built born ekasi, available on iOS and Android." },
+      { property: "og:title", content: "Our Work — Malloya Teq" },
+      { property: "og:description", content: "Featured projects built born ekasi." },
     ],
   }),
   component: PortfolioPage,
 });
 
-const filters = [
-  { label: "All", value: "all" },
-  { label: "Static", value: "static" },
-  { label: "Dynamic", value: "dynamic" },
-  { label: "Store", value: "store" },
-] as const;
+const projectIcon: Record<string, LucideIcon> = {
+  MapPin,
+  Truck: MapPin,
+  Search: MapPin,
+  Store: ShoppingBag,
+};
+
+const projectColor: Record<string, string> = {
+  teal: "oklch(0.62 0.1 195)",
+  orange: "oklch(0.67 0.16 45)",
+  purple: "oklch(0.52 0.13 305)",
+  red: "oklch(0.6 0.18 30)",
+};
 
 function PortfolioPage() {
-  const { portfolio: portfolioItems } = useContent();
-  const [filter, setFilter] = useState<string>("all");
-
-  const filtered = filter === "all" ? portfolioItems : portfolioItems.filter((p) => p.category === filter);
+  const { portfolio: items } = useContent();
 
   return (
     <>
-      <section className="px-6 pb-12 pt-12 md:pb-20 md:pt-16">
-        <div className="mx-auto max-w-4xl text-center">
-          <span className="badge-gold mb-4 inline-block">Our Work</span>
+      <section className="relative overflow-hidden px-6 pb-12 pt-12 md:pb-20 md:pt-16">
+        <div className="absolute inset-0 overflow-hidden">
+          <div
+            className="absolute -top-40 left-1/3 h-[500px] w-[500px] rounded-full opacity-20 blur-[120px]"
+            style={{ background: "radial-gradient(circle, oklch(0.67 0.16 45), transparent 70%)" }}
+          />
+        </div>
+        <div className="relative mx-auto max-w-4xl text-center">
+          <span className="badge-gold mb-4 inline-block">Featured Projects</span>
           <h1 className="text-4xl font-extrabold tracking-tight md:text-6xl">
-            Live <span className="gold-gradient-text">Websites</span>
+            Built <span className="gold-gradient-text">Born Ekasi</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
-            Explore websites and platforms we've built for businesses across South Africa.
+            Apps and platforms we've designed, built and shipped — proudly made in Soweto.
           </p>
         </div>
       </section>
 
       <Section>
-        <div className="mb-12 flex flex-wrap items-center justify-center gap-2">
-          {filters.map((f) => (
-            <button
-              key={f.value}
-              onClick={() => setFilter(f.value)}
-              className={`rounded-full px-5 py-2 text-sm font-medium transition-all ${
-                filter === f.value
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:text-foreground glass-card"
-              }`}
-            >
-              {f.label}
-            </button>
-          ))}
-        </div>
-
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((item, i) => (
-            <motion.div
-              key={item.id}
-              layout
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.3, delay: i * 0.05 }}
-              className="glass-card-hover group overflow-hidden"
-            >
-              <div className="relative aspect-video overflow-hidden">
-                <img
-                  src={item.screenshot}
-                  alt={item.name}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-              </div>
-              <div className="p-6">
-                <div className="mb-2 flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-foreground">{item.name}</h3>
-                  <span className="badge-gold !py-0.5 !text-[0.6rem]">{item.category}</span>
+        <div className="grid gap-8 sm:grid-cols-2">
+          {items.map((item, i) => {
+            const Icon = projectIcon[item.icon ?? "MapPin"] ?? MapPin;
+            const bg = projectColor[item.color ?? "teal"] ?? projectColor.teal;
+            return (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08, duration: 0.5 }}
+                className="glass-card-hover group overflow-hidden"
+              >
+                <div className="relative aspect-video overflow-hidden">
+                  <img
+                    src={item.screenshot}
+                    alt={item.name}
+                    width={800}
+                    height={600}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
                 </div>
-                <p className="mb-4 text-sm text-muted-foreground">{item.description}</p>
-                <a
-                  href={item.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-outline-gold inline-block !px-4 !py-2 text-xs no-underline"
-                >
-                  Visit Website →
-                </a>
-              </div>
-            </motion.div>
-          ))}
+                <div className="p-8">
+                  <div className="mb-3 flex flex-wrap items-center gap-3">
+                    <div className="icon-blob h-11 w-11 text-white" style={{ background: bg }}>
+                      <Icon className="h-5 w-5" strokeWidth={2} />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground">{item.name}</h3>
+                    {item.platforms?.map((p) => (
+                      <span key={p} className={p === "iOS" ? "chip chip-ios" : "chip chip-android"}>
+                        {p}
+                      </span>
+                    ))}
+                  </div>
+                  <p className="mb-5 text-sm text-muted-foreground">{item.description}</p>
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-outline-gold !px-5 !py-2 text-xs no-underline"
+                  >
+                    Visit →
+                  </a>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </Section>
 
       <Section>
-        <div className="glass-card glow-gold p-12 text-center md:p-20">
-          <h2 className="text-3xl font-bold text-foreground md:text-4xl">
-            Want a Website Like These?
+        <div className="cta-navy p-12 text-center md:p-20">
+          <h2 className="text-3xl font-extrabold md:text-4xl">
+            Want Us to Build Yours?
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-            Let's build your dream website. Get a free quote today.
+          <p className="mx-auto mt-4 max-w-xl text-navy-foreground/75">
+            Let's turn your idea into the next featured project. Get a free quote today.
           </p>
           <div className="mt-8">
-            <Link to="/quote" className="btn-gold inline-block text-base no-underline">
-              Request Quote
+            <Link to="/quote" className="btn-gold text-base no-underline">
+              Get a Quote
             </Link>
           </div>
         </div>
