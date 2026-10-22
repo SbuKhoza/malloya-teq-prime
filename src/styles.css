@@ -264,9 +264,6 @@
     align-items: center;
     justify-content: center;
     border-radius: 1.25rem;
-    box-shadow: 0 12px 28px -10px currentColor / 1%, inset 0 1px 0 oklch(1 0 0 / 45%);
-  }
-  .icon-blob {
     box-shadow: inset 0 1px 0 oklch(1 0 0 / 45%), 0 12px 28px -12px oklch(0.27 0.06 250 / 35%);
   }
 
