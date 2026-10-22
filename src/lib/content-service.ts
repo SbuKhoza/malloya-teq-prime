@@ -14,6 +14,12 @@ import {
 import { getDb } from "./firebase";
 import { portfolioItems, type PortfolioItem } from "../data/portfolio";
 import { reviews, type Review } from "../data/reviews";
+import {
+  websitePackages as defaultWebsitePackages,
+  appPackages as defaultAppPackages,
+  includedBenefits as defaultIncludedBenefits,
+  type Package,
+} from "../data/packages";
 
 export interface PageCopy {
   homeHeroBadge: string;
@@ -77,6 +83,9 @@ export const defaultFaqs: FAQItem[] = [
 ];
 
 export interface ContentDoc {
+  websitePackages: Package[];
+  appPackages: Package[];
+  includedBenefits: string[];
   portfolio: PortfolioItem[];
   reviews: Review[];
   copy: PageCopy;
@@ -84,6 +93,9 @@ export interface ContentDoc {
 }
 
 export const defaultContent: ContentDoc = {
+  websitePackages: defaultWebsitePackages,
+  appPackages: defaultAppPackages,
+  includedBenefits: [...defaultIncludedBenefits],
   portfolio: portfolioItems,
   reviews,
   copy: defaultPageCopy,
@@ -94,6 +106,9 @@ const CONTENT_DOC = ["content", "site"] as const;
 
 function mergeContent(data: Partial<ContentDoc>): ContentDoc {
   return {
+    websitePackages: data.websitePackages ?? defaultContent.websitePackages,
+    appPackages: data.appPackages ?? defaultContent.appPackages,
+    includedBenefits: data.includedBenefits ?? defaultContent.includedBenefits,
     portfolio: data.portfolio ?? defaultContent.portfolio,
     reviews: data.reviews ?? defaultContent.reviews,
     copy: { ...defaultContent.copy, ...(data.copy ?? {}) },

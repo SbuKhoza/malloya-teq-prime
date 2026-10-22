@@ -8,7 +8,24 @@ import {
 import { doc, getDoc } from "firebase/firestore";
 import { getFirebaseAuth, getDb } from "./firebase";
 
+function withTimeout<T>(promise: Promise<T>, ms: number, label: string): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const t = setTimeout(() => reject(new Error(`${label} timed out`)), ms);
+    promise.then(
+      (v) => {
+        clearTimeout(t);
+        resolve(v);
+      },
+      (e) => {
+        clearTimeout(t);
+        reject(e);
+      },
+    );
+  });
+}
+
 interface AuthCtx {
+  authError: string;
   user: User | null;
   isAdmin: boolean;
   loading: boolean;
@@ -22,6 +39,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [authError, setAuthError] = useState("");
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -31,12 +49,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const auth = getFirebaseAuth();
     const unsub = onAuthStateChanged(auth, async (u) => {
       setUser(u);
+      setAuthError("");
       if (u) {
         try {
-          const snap = await getDoc(doc(getDb(), "admins", u.uid));
+          // Never let a hung Firestore request keep the UI in a loading state forever.
+          const snap = await withTimeout(
+            getDoc(doc(getDb(), "admins", u.uid)),
+            10000,
+            "Admin check",
+          );
           setIsAdmin(snap.exists());
-        } catch {
+        } catch (e) {
+          console.error("[auth] admin check failed:", e);
           setIsAdmin(false);
+          setAuthError(
+            e instanceof Error ? e.message : "Could not verify admin access.",
+          );
         }
       } else {
         setIsAdmin(false);
@@ -54,7 +82,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <Ctx.Provider value={{ user, isAdmin, loading, signIn, signOut }}>
+    <Ctx.Provider value={{ user, isAdmin, loading, authError, signIn, signOut }}>
       {children}
     </Ctx.Provider>
   );
