@@ -96,7 +96,11 @@ function mergeContent(data: Partial<ContentDoc>): ContentDoc {
   return {
     portfolio: data.portfolio ?? defaultContent.portfolio,
     reviews: data.reviews ?? defaultContent.reviews,
-    copy: { ...defaultContent.copy, ...(data.copy ?? {}) },
+    // Stored copy saved before the redesign (no phoneDisplay field) is stale — use fresh brand copy.
+    copy:
+      data.copy && typeof data.copy.phoneDisplay === "string"
+        ? { ...defaultPageCopy, ...data.copy }
+        : defaultPageCopy,
     faqs: data.faqs ?? defaultContent.faqs,
   };
 }
