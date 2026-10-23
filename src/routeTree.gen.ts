@@ -13,7 +13,6 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as HostingInfoRouteImport } from './routes/hosting-info'
-import { Route as PackagesRouteImport } from './routes/packages'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as QuoteRouteImport } from './routes/quote'
@@ -40,11 +39,6 @@ const FaqRoute = FaqRouteImport.update({
 const HostingInfoRoute = HostingInfoRouteImport.update({
   id: '/hosting-info',
   path: '/hosting-info',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PackagesRoute = PackagesRouteImport.update({
-  id: '/packages',
-  path: '/packages',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PortfolioRoute = PortfolioRouteImport.update({
@@ -88,7 +82,6 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/hosting-info': typeof HostingInfoRoute
-  '/packages': typeof PackagesRoute
   '/portfolio': typeof PortfolioRoute
   '/privacy': typeof PrivacyRoute
   '/quote': typeof QuoteRoute
@@ -102,7 +95,6 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/hosting-info': typeof HostingInfoRoute
-  '/packages': typeof PackagesRoute
   '/portfolio': typeof PortfolioRoute
   '/privacy': typeof PrivacyRoute
   '/quote': typeof QuoteRoute
@@ -117,7 +109,6 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/hosting-info': typeof HostingInfoRoute
-  '/packages': typeof PackagesRoute
   '/portfolio': typeof PortfolioRoute
   '/privacy': typeof PrivacyRoute
   '/quote': typeof QuoteRoute
@@ -133,7 +124,6 @@ export interface FileRouteTypes {
     | '/contact'
     | '/faq'
     | '/hosting-info'
-    | '/packages'
     | '/portfolio'
     | '/privacy'
     | '/quote'
@@ -147,7 +137,6 @@ export interface FileRouteTypes {
     | '/contact'
     | '/faq'
     | '/hosting-info'
-    | '/packages'
     | '/portfolio'
     | '/privacy'
     | '/quote'
@@ -161,7 +150,6 @@ export interface FileRouteTypes {
     | '/contact'
     | '/faq'
     | '/hosting-info'
-    | '/packages'
     | '/portfolio'
     | '/privacy'
     | '/quote'
@@ -176,7 +164,6 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
   HostingInfoRoute: typeof HostingInfoRoute
-  PackagesRoute: typeof PackagesRoute
   PortfolioRoute: typeof PortfolioRoute
   PrivacyRoute: typeof PrivacyRoute
   QuoteRoute: typeof QuoteRoute
@@ -214,13 +201,6 @@ declare module '@tanstack/react-router' {
       path: '/hosting-info'
       fullPath: '/hosting-info'
       preLoaderRoute: typeof HostingInfoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/packages': {
-      id: '/packages'
-      path: '/packages'
-      fullPath: '/packages'
-      preLoaderRoute: typeof PackagesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/portfolio': {
@@ -280,7 +260,6 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
   HostingInfoRoute: HostingInfoRoute,
-  PackagesRoute: PackagesRoute,
   PortfolioRoute: PortfolioRoute,
   PrivacyRoute: PrivacyRoute,
   QuoteRoute: QuoteRoute,
