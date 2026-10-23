@@ -1,0 +1,5 @@
+{
+  "buildCommand": "npm run build:cpanel",
+  "outputDirectory": "dist-cpanel",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
