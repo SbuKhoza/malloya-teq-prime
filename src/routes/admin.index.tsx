@@ -14,7 +14,6 @@ import {
   type FAQItem,
   type QuoteSubmission,
 } from "../lib/content-service";
-import type { Package } from "../data/packages";
 import type { PortfolioItem } from "../data/portfolio";
 import type { Review } from "../data/reviews";
 
@@ -28,12 +27,12 @@ export const Route = createFileRoute("/admin/")({
   component: AdminPage,
 });
 
-type Tab = "packages" | "portfolio" | "reviews" | "copy" | "contact" | "faq" | "quotes";
+type Tab = "portfolio" | "reviews" | "copy" | "contact" | "faq" | "quotes";
 
 function AdminPage() {
   const { user, isAdmin, loading, signOut } = useAuth();
   const navigate = useNavigate();
-  const [tab, setTab] = useState<Tab>("packages");
+  const [tab, setTab] = useState<Tab>("portfolio");
   const [content, setContent] = useState<ContentDoc | null>(null);
   const [saving, setSaving] = useState(false);
   const [savedAt, setSavedAt] = useState<number | null>(null);
@@ -80,7 +79,6 @@ function AdminPage() {
   };
 
   const tabs: { id: Tab; label: string }[] = [
-    { id: "packages", label: "Packages" },
     { id: "portfolio", label: "Portfolio" },
     { id: "reviews", label: "Reviews" },
     { id: "contact", label: "Contact Page" },
@@ -166,15 +164,6 @@ function AdminPage() {
       )}
 
       <main className="mx-auto max-w-7xl px-6 py-8">
-        {tab === "packages" && (
-          <PackagesEditor
-            websitePackages={content.websitePackages}
-            appPackages={content.appPackages}
-            includedBenefits={content.includedBenefits}
-            onChange={(patch) => update(patch)}
-            onReset={(k) => handleResetSection(k)}
-          />
-        )}
         {tab === "portfolio" && (
           <PortfolioEditor
             items={content.portfolio}
@@ -372,282 +361,6 @@ function ScreenshotUploader({
           onError={(e) => (e.currentTarget.style.display = "none")}
         />
       )}
-    </div>
-  );
-}
-
-/* ---------- Packages editor ---------- */
-
-function PackagesEditor({
-  websitePackages,
-  appPackages,
-  includedBenefits,
-  onChange,
-  onReset,
-}: {
-  websitePackages: Package[];
-  appPackages: Package[];
-  includedBenefits: string[];
-  onChange: (patch: Partial<ContentDoc>) => void;
-  onReset: (k: keyof ContentDoc) => void;
-}) {
-  const updateWebsite = (i: number, p: Partial<Package>) => {
-    const next = [...websitePackages];
-    next[i] = { ...next[i], ...p };
-    onChange({ websitePackages: next });
-  };
-  const updateApp = (i: number, p: Partial<Package>) => {
-    const next = [...appPackages];
-    next[i] = { ...next[i], ...p };
-    onChange({ appPackages: next });
-  };
-
-  const addPackage = (target: "website" | "app") => {
-    const newPkg: Package = {
-      id: `new-${Date.now()}`,
-      name: "New Package",
-      category: target === "app" ? "app" : "static",
-      buildPrice: target === "app" ? null : 0,
-      monthlyPrice: target === "app" ? null : 499,
-      annualPrice: target === "app" ? null : 4999,
-      features: ["Feature 1"],
-    };
-    if (target === "website") onChange({ websitePackages: [...websitePackages, newPkg] });
-    else onChange({ appPackages: [...appPackages, newPkg] });
-  };
-
-  const removePackage = (target: "website" | "app", i: number) => {
-    if (!confirm("Delete this package?")) return;
-    if (target === "website")
-      onChange({ websitePackages: websitePackages.filter((_, idx) => idx !== i) });
-    else onChange({ appPackages: appPackages.filter((_, idx) => idx !== i) });
-  };
-
-  return (
-    <div>
-      <SectionCard
-        title="Included Benefits (with every website package)"
-        action={
-          <button
-            onClick={() => onReset("includedBenefits")}
-            className="text-xs text-muted-foreground hover:text-foreground"
-          >
-            Reset
-          </button>
-        }
-      >
-        <ListEditor
-          items={includedBenefits}
-          onChange={(includedBenefits) => onChange({ includedBenefits })}
-          placeholder="e.g. Free Monthly Hosting"
-        />
-      </SectionCard>
-
-      <SectionCard
-        title="Website & Store Packages"
-        action={
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => addPackage("website")}
-              className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-xs hover:bg-muted"
-            >
-              <Plus className="h-3.5 w-3.5" /> Add package
-            </button>
-            <button
-              onClick={() => onReset("websitePackages")}
-              className="text-xs text-muted-foreground hover:text-foreground"
-            >
-              Reset
-            </button>
-          </div>
-        }
-      >
-        <div className="space-y-4">
-          {websitePackages.map((pkg, i) => (
-            <PackageCardEditor
-              key={pkg.id}
-              pkg={pkg}
-              onChange={(p) => updateWebsite(i, p)}
-              onDelete={() => removePackage("website", i)}
-            />
-          ))}
-        </div>
-      </SectionCard>
-
-      <SectionCard
-        title="App Packages"
-        action={
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => addPackage("app")}
-              className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-xs hover:bg-muted"
-            >
-              <Plus className="h-3.5 w-3.5" /> Add package
-            </button>
-            <button
-              onClick={() => onReset("appPackages")}
-              className="text-xs text-muted-foreground hover:text-foreground"
-            >
-              Reset
-            </button>
-          </div>
-        }
-      >
-        <div className="space-y-4">
-          {appPackages.map((pkg, i) => (
-            <PackageCardEditor
-              key={pkg.id}
-              pkg={pkg}
-              onChange={(p) => updateApp(i, p)}
-              onDelete={() => removePackage("app", i)}
-            />
-          ))}
-        </div>
-      </SectionCard>
-    </div>
-  );
-}
-
-function PackageCardEditor({
-  pkg,
-  onChange,
-  onDelete,
-}: {
-  pkg: Package;
-  onChange: (p: Partial<Package>) => void;
-  onDelete: () => void;
-}) {
-  const hasCms = pkg.cmsMonthlyAddon !== undefined;
-
-  return (
-    <div className="rounded-xl border border-border bg-background p-4">
-      <div className="mb-3 flex items-start justify-between gap-3">
-        <div className="flex-1 grid gap-3 sm:grid-cols-3">
-          <Field label="Name">
-            <TextInput value={pkg.name} onChange={(e) => onChange({ name: e.target.value })} />
-          </Field>
-          <Field label="Category">
-            <select
-              value={pkg.category}
-              onChange={(e) => onChange({ category: e.target.value as Package["category"] })}
-              className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
-            >
-              <option value="static">Static</option>
-              <option value="store">Store</option>
-              <option value="app">App</option>
-            </select>
-          </Field>
-          <Field label="CTA label (optional)">
-            <TextInput
-              value={pkg.cta ?? ""}
-              onChange={(e) => onChange({ cta: e.target.value || undefined })}
-              placeholder="Get Started"
-            />
-          </Field>
-        </div>
-        <button
-          onClick={onDelete}
-          className="rounded-md border border-border p-2 text-muted-foreground hover:border-destructive hover:text-destructive"
-          aria-label="Delete"
-        >
-          <Trash2 className="h-4 w-4" />
-        </button>
-      </div>
-
-      <div className="mb-3 grid gap-3 sm:grid-cols-3">
-        <Field label="Build price (R, once-off)">
-          <NumberInput
-            value={pkg.buildPrice ?? ""}
-            onChange={(e) =>
-              onChange({ buildPrice: e.target.value === "" ? null : Number(e.target.value) })
-            }
-            placeholder="empty = custom quote"
-          />
-        </Field>
-        <Field label="Monthly hosting (R)">
-          <NumberInput
-            value={pkg.monthlyPrice ?? ""}
-            onChange={(e) =>
-              onChange({ monthlyPrice: e.target.value === "" ? null : Number(e.target.value) })
-            }
-            placeholder="empty = custom quote"
-          />
-        </Field>
-        <Field label="Annual hosting (R)">
-          <NumberInput
-            value={pkg.annualPrice ?? ""}
-            onChange={(e) =>
-              onChange({ annualPrice: e.target.value === "" ? null : Number(e.target.value) })
-            }
-            placeholder="empty = custom quote"
-          />
-        </Field>
-      </div>
-
-      <label className="mb-3 flex items-center gap-2 text-xs">
-        <input
-          type="checkbox"
-          checked={pkg.popular ?? false}
-          onChange={(e) => onChange({ popular: e.target.checked })}
-        />
-        <span>Mark as popular</span>
-      </label>
-
-      <div className="mb-3 rounded-lg border border-dashed border-border p-3">
-        <label className="mb-2 flex items-center gap-2 text-xs">
-          <input
-            type="checkbox"
-            checked={hasCms}
-            onChange={(e) =>
-              onChange(
-                e.target.checked
-                  ? { cmsBuildAddon: 0, cmsMonthlyAddon: 200, cmsAnnualAddon: 2000, cmsFeatures: ["Admin dashboard"] }
-                  : { cmsBuildAddon: undefined, cmsMonthlyAddon: undefined, cmsAnnualAddon: undefined, cmsFeatures: undefined },
-              )
-            }
-          />
-          <span className="font-medium text-foreground">Has CMS upgrade option</span>
-        </label>
-        {hasCms && (
-          <>
-            <div className="mb-3 grid gap-3 sm:grid-cols-3">
-              <Field label="CMS build add-on (R)">
-                <NumberInput
-                  value={pkg.cmsBuildAddon ?? 0}
-                  onChange={(e) => onChange({ cmsBuildAddon: Number(e.target.value) })}
-                />
-              </Field>
-              <Field label="CMS monthly add-on (R)">
-                <NumberInput
-                  value={pkg.cmsMonthlyAddon ?? 0}
-                  onChange={(e) => onChange({ cmsMonthlyAddon: Number(e.target.value) })}
-                />
-              </Field>
-              <Field label="CMS annual add-on (R)">
-                <NumberInput
-                  value={pkg.cmsAnnualAddon ?? 0}
-                  onChange={(e) => onChange({ cmsAnnualAddon: Number(e.target.value) })}
-                />
-              </Field>
-            </div>
-            <Field label="CMS features (when toggled on)">
-              <ListEditor
-                items={pkg.cmsFeatures ?? []}
-                onChange={(cmsFeatures) => onChange({ cmsFeatures })}
-                placeholder="e.g. Admin dashboard"
-              />
-            </Field>
-          </>
-        )}
-      </div>
-
-      <Field label="Features">
-        <ListEditor
-          items={pkg.features}
-          onChange={(features) => onChange({ features })}
-          placeholder="e.g. Up to 5 pages"
-        />
-      </Field>
     </div>
   );
 }
@@ -991,6 +704,9 @@ function ContactEditor({
             value={copy.whatsappNumber}
             onChange={(e) => set("whatsappNumber", e.target.value.replace(/\D/g, ""))}
           />
+        </Field>
+        <Field label="Phone (display)">
+          <TextInput value={copy.phoneDisplay} onChange={(e) => set("phoneDisplay", e.target.value)} />
         </Field>
         <Field label="Location">
           <TextInput value={copy.location} onChange={(e) => set("location", e.target.value)} />

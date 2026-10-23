@@ -18,23 +18,21 @@ export const Route = createFileRoute("/quote")({
 });
 
 const serviceTypes = [
-  "Website Development",
-  "Mobile App Development",
-  "Software Systems",
-  "Hosting & Domains",
+  "Website & Mobile App Development",
+  "Automation & Workflow Development",
+  "Hosting",
+  "UX/UI Design",
+  "E-commerce Development",
 ] as const;
 
 function QuotePage() {
-  const { copy, websitePackages, appPackages } = useContent();
-  const allPackages = [...websitePackages, ...appPackages];
+  const { copy } = useContent();
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
     serviceType: "",
-    packageName: "",
-    billingCycle: "monthly",
     fullName: "",
     companyName: "",
     email: "",
@@ -88,8 +86,14 @@ function QuotePage() {
 
   return (
     <>
-      <section className="px-6 pb-8 pt-12 md:pt-16">
-        <div className="mx-auto max-w-3xl text-center">
+      <section className="relative overflow-hidden px-6 pb-8 pt-12 md:pt-16">
+        <div className="absolute inset-0 overflow-hidden">
+          <div
+            className="absolute -top-32 right-1/3 h-[420px] w-[420px] rounded-full opacity-20 blur-[110px]"
+            style={{ background: "radial-gradient(circle, oklch(0.67 0.16 45), transparent 70%)" }}
+          />
+        </div>
+        <div className="relative mx-auto max-w-3xl text-center">
           <span className="badge-gold mb-4 inline-block">{copy.quoteHeroBadge}</span>
           <h1 className="text-4xl font-extrabold tracking-tight md:text-5xl">
             {copy.quoteHeroTitle.split(" ").slice(0, -1).join(" ")}{" "}
@@ -134,7 +138,7 @@ function QuotePage() {
             >
               {step === 1 && (
                 <div className="space-y-6">
-                  <h3 className="text-xl font-bold text-foreground">Service Details</h3>
+                  <h3 className="text-xl font-bold text-foreground">What do you need?</h3>
                   <div>
                     <label className="mb-2 block text-sm font-medium text-foreground">Service Type</label>
                     <select
@@ -147,37 +151,6 @@ function QuotePage() {
                         <option key={t} value={t}>{t}</option>
                       ))}
                     </select>
-                  </div>
-                  <div>
-                    <label className="mb-2 block text-sm font-medium text-foreground">Package</label>
-                    <select
-                      value={form.packageName}
-                      onChange={(e) => update("packageName", e.target.value)}
-                      className="w-full rounded-xl border border-border bg-muted px-4 py-3 text-sm text-foreground outline-none transition-colors focus:border-primary"
-                    >
-                      <option value="">Select a package</option>
-                      {allPackages.map((p) => (
-                        <option key={p.id} value={p.name}>{p.name}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="mb-2 block text-sm font-medium text-foreground">Billing Cycle</label>
-                    <div className="flex gap-4">
-                      {["monthly", "annual"].map((c) => (
-                        <button
-                          key={c}
-                          onClick={() => update("billingCycle", c)}
-                          className={`flex-1 rounded-xl border px-4 py-3 text-sm font-medium transition-all ${
-                            form.billingCycle === c
-                              ? "border-primary bg-primary/10 text-primary"
-                              : "border-border text-muted-foreground hover:border-primary/50"
-                          }`}
-                        >
-                          {c.charAt(0).toUpperCase() + c.slice(1)}
-                        </button>
-                      ))}
-                    </div>
                   </div>
                 </div>
               )}
@@ -247,8 +220,6 @@ function QuotePage() {
                   <div className="space-y-4 rounded-xl bg-muted/50 p-6">
                     {[
                       { label: "Service", value: form.serviceType },
-                      { label: "Package", value: form.packageName },
-                      { label: "Billing", value: form.billingCycle },
                       { label: "Name", value: form.fullName },
                       { label: "Company", value: form.companyName },
                       { label: "Email", value: form.email },
