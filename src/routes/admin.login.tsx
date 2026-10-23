@@ -14,7 +14,7 @@ export const Route = createFileRoute("/admin/login")({
 });
 
 function AdminLoginPage() {
-  const { user, isAdmin, loading, authError, signIn } = useAuth();
+  const { user, isAdmin, loading, signIn } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -57,11 +57,7 @@ function AdminLoginPage() {
         {user && !isAdmin && (
           <div className="mb-4 flex items-start gap-2 rounded-lg border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">
             <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
-            <span>
-              {authError
-                ? `Signed in, but admin access could not be verified: ${authError}`
-                : "This account is signed in but does not have admin access."}
-            </span>
+            <span>This account is signed in but does not have admin access.</span>
           </div>
         )}
 

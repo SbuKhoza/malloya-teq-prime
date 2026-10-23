@@ -55,18 +55,6 @@ export const Route = createRootRoute({
 });
 
 function RootShell({ children }: { children: React.ReactNode }) {
-  // The static SPA build (vite.cpanel.config.ts) mounts into <div id="root">, so it must
-  // NOT render <html>/<head>/<body> — React would try to adopt the real document elements
-  // as children of #root, which hangs the tab on the first re-render (e.g. typing in an input).
-  // Only the server-rendered (TanStack Start) build renders the full document shell.
-  if (import.meta.env.VITE_SPA) {
-    return (
-      <>
-        <HeadContent />
-        {children}
-      </>
-    );
-  }
   return (
     <html lang="en">
       <head>
