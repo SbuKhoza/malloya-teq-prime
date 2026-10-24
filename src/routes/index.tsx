@@ -1,12 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
-  Globe,
-  Zap,
-  Cloud,
-  Palette,
-  ShoppingBag,
-  Check,
   Star,
   ShieldCheck,
   MapPin,
@@ -16,7 +10,17 @@ import {
 } from "lucide-react";
 import { Section, SectionHeader } from "../components/Section";
 import { useContent } from "../lib/use-content";
-import heroIllustration from "../assets/hero-illustration.png";
+import heroBanner from "../assets/malloya-hero-banner.png.asset.json";
+import flyerWeb from "../assets/flyer-web.png.asset.json";
+import flyerGears from "../assets/flyer-gears.png.asset.json";
+import flyerCloud from "../assets/flyer-cloud.png.asset.json";
+import flyerDesign from "../assets/flyer-design.png.asset.json";
+import flyerCart from "../assets/flyer-cart.png.asset.json";
+import flyerRocket from "../assets/flyer-rocket.png.asset.json";
+import flyerBulb from "../assets/flyer-bulb.png.asset.json";
+import flyerGear from "../assets/flyer-gear.png.asset.json";
+import skylineLeft from "../assets/flyer-skyline-left.png.asset.json";
+import skylineRight from "../assets/flyer-skyline-right.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -31,11 +35,11 @@ export const Route = createFileRoute("/")({
 });
 
 const services = [
-  { Icon: Globe, title: "Website & Mobile App Development", desc: "Modern, responsive websites and apps for Android, iOS and cross-platform.", bg: "oklch(0.62 0.1 195)" },
-  { Icon: Zap, title: "Automation & Workflow Development", desc: "Automations, LMS, booking and inventory systems that save you hours every week.", bg: "oklch(0.67 0.16 45)" },
-  { Icon: Cloud, title: "Hosting", desc: "Fast, secure and reliable hosting — domains, SSL and business emails, sorted.", bg: "oklch(0.52 0.13 305)" },
-  { Icon: Palette, title: "UX/UI Design", desc: "Clean, modern and user-friendly interfaces designed for real people.", bg: "oklch(0.82 0.13 85)" },
-  { Icon: ShoppingBag, title: "E-commerce Development", desc: "Online stores and dropshipping platforms ready to sell from day one.", bg: "oklch(0.62 0.1 195)" },
+  { img: flyerWeb.url, title: "Website & Mobile App Development", desc: "Modern, responsive websites and apps for Android, iOS and cross-platform." },
+  { img: flyerGears.url, title: "Automation & Workflow Development", desc: "Automations, LMS, booking and inventory systems that save you hours every week." },
+  { img: flyerCloud.url, title: "Hosting", desc: "Fast, secure and reliable hosting — domains, SSL and business emails, sorted." },
+  { img: flyerDesign.url, title: "UX/UI Design", desc: "Clean, modern and user-friendly interfaces designed for real people." },
+  { img: flyerCart.url, title: "E-commerce Development", desc: "Online stores and dropshipping platforms ready to sell from day one." },
 ] as const;
 
 const whyUs = [
@@ -49,7 +53,7 @@ const projectIcon: Record<string, LucideIcon> = {
   MapPin,
   Truck: MapPin,
   Search: MapPin,
-  Store: ShoppingBag,
+  Store: ShieldCheck,
 };
 
 const projectColor: Record<string, string> = {
@@ -103,14 +107,28 @@ function HomePage() {
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
-            className="relative md:-mr-8 lg:-mr-16"
+            className="relative"
           >
+            {/* Floating flyer doodles around the brand banner */}
             <img
-              src={heroIllustration}
-              alt="Malloya Teq — building tech, the kasi way"
-              width={1024}
-              height={1024}
-              className="mx-auto w-full max-w-md md:max-w-none lg:scale-110"
+              src={flyerRocket.url}
+              alt=""
+              className="absolute -top-6 -right-2 z-10 w-14 animate-[float_6s_ease-in-out_infinite] md:-top-8 md:right-6 md:w-20"
+            />
+            <img
+              src={flyerGear.url}
+              alt=""
+              className="absolute -bottom-4 left-2 z-10 w-10 animate-[float_7s_ease-in-out_infinite_1s] md:-bottom-6 md:left-0 md:w-14"
+            />
+            <img
+              src={flyerBulb.url}
+              alt=""
+              className="absolute top-1/2 -left-4 z-10 w-12 animate-[float_8s_ease-in-out_infinite_0.5s] md:-left-10 md:w-16"
+            />
+            <img
+              src={heroBanner.url}
+              alt="Malloya Group — Born Ekasi! Software & automation studio"
+              className="mx-auto w-full max-w-md rounded-3xl md:max-w-lg"
             />
           </motion.div>
         </div>
@@ -129,11 +147,8 @@ function HomePage() {
               transition={{ delay: i * 0.08, duration: 0.5 }}
               className="glass-card-hover p-8"
             >
-              <div
-                className="icon-blob mb-4 h-14 w-14 text-white"
-                style={{ background: s.bg }}
-              >
-                <s.Icon className="h-7 w-7" strokeWidth={2} />
+              <div className="mb-4 flex h-20 items-center justify-center">
+                <img src={s.img} alt="" className="h-20 w-auto object-contain" />
               </div>
               <h3 className="mb-2 text-lg font-bold text-foreground">{s.title}</h3>
               <p className="text-sm text-muted-foreground">{s.desc}</p>
@@ -148,9 +163,11 @@ function HomePage() {
       </Section>
 
       {/* Featured Projects */}
-      <Section className="!bg-surface">
+      <Section className="!bg-surface relative overflow-hidden">
+        <img src={skylineLeft.url} alt="" className="pointer-events-none absolute bottom-0 left-0 hidden h-56 opacity-70 lg:block" />
+        <img src={skylineRight.url} alt="" className="pointer-events-none absolute right-0 bottom-0 hidden h-56 opacity-70 lg:block" />
         <SectionHeader badge="Featured Projects" title="Built Born Ekasi" description="Products we've designed, built and shipped — available on iOS and Android." />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="relative grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {portfolio.map((item, i) => {
             const Icon = projectIcon[item.icon ?? "MapPin"] ?? MapPin;
             const bg = projectColor[item.color ?? "teal"] ?? projectColor.teal;
@@ -195,7 +212,7 @@ function HomePage() {
             );
           })}
         </div>
-        <div className="mt-10 text-center">
+        <div className="relative mt-10 text-center">
           <Link to="/portfolio" className="btn-gold text-sm no-underline">
             Explore Our Projects →
           </Link>
@@ -261,6 +278,11 @@ function HomePage() {
           <div
             className="absolute -right-20 -top-20 h-64 w-64 rounded-full opacity-20 blur-[80px]"
             style={{ background: "radial-gradient(circle, oklch(0.67 0.16 45), transparent 70%)" }}
+          />
+          <img
+            src={flyerRocket.url}
+            alt=""
+            className="absolute top-8 left-8 hidden w-16 animate-[float_6s_ease-in-out_infinite] opacity-90 md:block"
           />
           <span className="badge-gold mb-6 inline-block !bg-secondary" style={{ boxShadow: "3px 3px 0 oklch(1 0 0 / 25%)" }}>
             Born Ekasi!

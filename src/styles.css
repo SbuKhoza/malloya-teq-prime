@@ -61,8 +61,8 @@
 
 :root {
   --radius: 1rem;
-  /* Malloya Group brand — warm cream, deep navy, teal, orange, purple */
-  --background: oklch(0.968 0.014 85);
+  /* Malloya Group brand — clean white, deep navy, teal, orange, purple, cream accents */
+  --background: oklch(1 0 0);
   --foreground: oklch(0.27 0.06 250);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.27 0.06 250);
@@ -72,22 +72,22 @@
   --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.67 0.16 45);
   --secondary-foreground: oklch(1 0 0);
-  --muted: oklch(0.94 0.014 85);
+  --muted: oklch(0.95 0.014 85);
   --muted-foreground: oklch(0.46 0.04 250);
   --accent: oklch(0.67 0.16 45);
   --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(1 0 0 / 60%);
+  --border: oklch(0.27 0.06 250 / 8%);
   --input: oklch(0.27 0.06 250 / 10%);
   --ring: oklch(0.62 0.1 195);
   --gold: oklch(0.67 0.16 45);
   --gold-foreground: oklch(1 0 0);
   --ice: oklch(0.52 0.13 305);
   --ice-foreground: oklch(1 0 0);
-  --glass: oklch(1 0 0 / 65%);
-  --glass-border: oklch(1 0 0 / 70%);
-  --surface: oklch(0.94 0.016 85);
+  --glass: oklch(1 0 0 / 80%);
+  --glass-border: oklch(0.27 0.06 250 / 8%);
+  --surface: oklch(0.965 0.014 85);
   --navy: oklch(0.27 0.06 250);
   --navy-foreground: oklch(0.97 0.014 85);
   --sun: oklch(0.82 0.13 85);
@@ -100,7 +100,7 @@
   --sidebar-foreground: oklch(0.27 0.06 250);
   --sidebar-primary: oklch(0.62 0.1 195);
   --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.94 0.014 85);
+  --sidebar-accent: oklch(0.95 0.014 85);
   --sidebar-accent-foreground: oklch(0.27 0.06 250);
   --sidebar-border: oklch(0.27 0.06 250 / 14%);
   --sidebar-ring: oklch(0.62 0.1 195);
