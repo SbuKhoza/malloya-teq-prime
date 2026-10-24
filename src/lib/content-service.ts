@@ -96,9 +96,9 @@ function mergeContent(data: Partial<ContentDoc>): ContentDoc {
   return {
     portfolio: data.portfolio ?? defaultContent.portfolio,
     reviews: data.reviews ?? defaultContent.reviews,
-    // Stored copy saved before the redesign (no phoneDisplay field) is stale — use fresh brand copy.
+    // Stored copy saved before the redesign carries the old hero title — treat it as stale.
     copy:
-      data.copy && typeof data.copy.phoneDisplay === "string"
+      data.copy && data.copy.homeHeroTitle !== "Websites, Apps & Smart Business Systems"
         ? { ...defaultPageCopy, ...data.copy }
         : defaultPageCopy,
     faqs: data.faqs ?? defaultContent.faqs,
