@@ -80,7 +80,7 @@ function HomePage() {
           />
         </div>
 
-        <div className="relative mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2">
+        <div className="relative mx-auto grid max-w-7xl items-center gap-10 md:grid-cols-[1fr_1.15fr]">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
