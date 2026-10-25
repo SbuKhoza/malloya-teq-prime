@@ -80,7 +80,7 @@ function HomePage() {
           />
         </div>
 
-        <div className="relative mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2">
+        <div className="relative mx-auto grid max-w-7xl items-center gap-10 md:grid-cols-[1fr_1.15fr]">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -128,7 +128,7 @@ function HomePage() {
             <img
               src={heroBanner.url}
               alt="Malloya Group — Born Ekasi! Software & automation studio"
-              className="mx-auto w-full max-w-lg md:max-w-2xl lg:max-w-3xl"
+              className="mx-auto w-full max-w-xl md:max-w-3xl lg:max-w-4xl"
               style={{
                 maskImage:
                   "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%)",
