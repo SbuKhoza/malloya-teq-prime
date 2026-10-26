@@ -16,6 +16,7 @@ import {
 } from "../lib/content-service";
 import type { PortfolioItem } from "../data/portfolio";
 import type { Review } from "../data/reviews";
+import { AnalyticsPanel } from "../components/admin/AnalyticsPanel";
 
 export const Route = createFileRoute("/admin/")({
   head: () => ({
@@ -27,7 +28,7 @@ export const Route = createFileRoute("/admin/")({
   component: AdminPage,
 });
 
-type Tab = "portfolio" | "reviews" | "copy" | "contact" | "faq" | "quotes";
+type Tab = "portfolio" | "reviews" | "copy" | "contact" | "faq" | "quotes" | "analytics";
 
 function AdminPage() {
   const { user, isAdmin, loading, signOut } = useAuth();
@@ -84,6 +85,7 @@ function AdminPage() {
     { id: "contact", label: "Contact Page" },
     { id: "faq", label: "FAQ" },
     { id: "quotes", label: "Quotes" },
+    { id: "analytics", label: "Visitors" },
     { id: "copy", label: "Page Copy" },
   ];
 
@@ -195,6 +197,7 @@ function AdminPage() {
           />
         )}
         {tab === "quotes" && <QuotesViewer />}
+        {tab === "analytics" && <AnalyticsPanel />}
         {tab === "copy" && (
           <CopyEditor
             copy={content.copy}

@@ -2,6 +2,8 @@ import { Outlet, Link, createRootRoute, HeadContent, Scripts, useRouterState } f
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { WhatsAppButton } from "../components/WhatsAppButton";
+import { CookieConsent } from "../components/CookieConsent";
+import { AnalyticsTracker } from "../components/AnalyticsTracker";
 import { AuthProvider } from "../lib/auth-context";
 
 import appCss from "../styles.css?url";
@@ -96,6 +98,8 @@ function RootComponent() {
           </main>
           <Footer />
           <WhatsAppButton />
+          <AnalyticsTracker />
+          <CookieConsent />
         </>
       )}
     </AuthProvider>

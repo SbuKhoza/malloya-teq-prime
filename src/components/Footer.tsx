@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { openCookiePreferences } from "../lib/consent";
 
 const quickLinks = [
   { to: "/services", label: "Services" },
@@ -88,6 +89,15 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <button
+                  type="button"
+                  onClick={openCookiePreferences}
+                  className="text-sm text-navy-foreground/80 transition-colors hover:text-secondary"
+                >
+                  Cookie Settings
+                </button>
+              </li>
             </ul>
           </div>
 
