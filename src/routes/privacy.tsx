@@ -66,8 +66,8 @@ function PrivacyPage() {
               <div>
                 <h3 className="font-bold text-foreground">Analytics (optional)</h3>
                 <p className="mt-1">
-                  If you allow this, we count you once per day as a visitor and record your country
-                  and province. We store a small marker (<code>mt_vd</code>) in your browser holding
+                  If you allow this, we count you once per day as a visitor and record your region.
+                  We store a small marker (<code>mt_vd</code>) in your browser holding
                   the date you were last counted, so you are not counted twice in one day. It
                   contains no ID and cannot be used to follow you from one day to the next. To work
                   out your location, your IP address is sent once a day to a third-party

@@ -25,7 +25,7 @@ const OPTIONAL_CATEGORIES: {
     key: "analytics",
     title: "Analytics",
     description:
-      "Helps us count daily visitors and see which country and province they visit from. A small marker with today's date stops you being counted twice in one day. Your IP address is sent to a location service to work out your region and is not stored by us.",
+      "Helps us count daily visitors and see which region they visit from. A small marker with today's date stops you being counted twice in one day. Your IP address is sent to a location service to work out your region and is not stored by us.",
   },
   {
     key: "preferences",
