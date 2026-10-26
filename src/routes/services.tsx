@@ -72,7 +72,7 @@ const serviceCategories = [
     ],
   },
   {
-    img: flyerCart.url,
+    Icon: ShoppingBag,
     title: "E-commerce Development",
     desc: "Online stores ready to sell from day one.",
     bg: "oklch(0.62 0.1 195)",
