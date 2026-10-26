@@ -60,7 +60,7 @@ const serviceCategories = [
     ],
   },
   {
-    img: flyerDesign.url,
+    Icon: Palette,
     title: "UX/UI Design",
     desc: "Clean, modern and user-friendly design.",
     bg: "oklch(0.82 0.13 85)",
