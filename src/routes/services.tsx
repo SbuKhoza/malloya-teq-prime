@@ -47,7 +47,7 @@ const serviceCategories = [
     ],
   },
   {
-    img: flyerCloud.url,
+    Icon: Cloud,
     title: "Hosting",
     desc: "Everything you need to get and stay online.",
     bg: "oklch(0.52 0.13 305)",
