@@ -126,7 +126,7 @@ function HomePage() {
               className="absolute top-1/2 -left-4 z-10 w-12 animate-[float_8s_ease-in-out_infinite_0.5s] md:-left-10 md:w-16"
             />
             <img
-              src={heroBanner.url}
+              src={copy.homeHeroImage || heroBanner.url}
               alt="Malloya Group — Born Ekasi! Software & automation studio"
               className="mx-auto w-full max-w-xl rounded-[2.5rem] md:max-w-3xl lg:max-w-4xl"
               style={{
