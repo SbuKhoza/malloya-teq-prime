@@ -34,7 +34,7 @@ const serviceCategories = [
     ],
   },
   {
-    img: flyerGears.url,
+    Icon: Zap,
     title: "Automation & Workflow Development",
     desc: "Custom software to automate and streamline your operations.",
     bg: "oklch(0.67 0.16 45)",
