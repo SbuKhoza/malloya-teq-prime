@@ -1,12 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { Globe, Zap, Cloud, Palette, ShoppingBag, type LucideIcon } from "lucide-react";
 import { Section } from "../components/Section";
 import { useContent } from "../lib/use-content";
-import flyerWeb from "../assets/flyer-web.png.asset.json";
-import flyerGears from "../assets/flyer-gears.png.asset.json";
-import flyerCloud from "../assets/flyer-cloud.png.asset.json";
-import flyerDesign from "../assets/flyer-design.png.asset.json";
-import flyerCart from "../assets/flyer-cart.png.asset.json";
 import flyerBulb from "../assets/flyer-bulb.png.asset.json";
 import flyerRocket from "../assets/flyer-rocket.png.asset.json";
 
