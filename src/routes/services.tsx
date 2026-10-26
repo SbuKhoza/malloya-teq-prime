@@ -124,7 +124,12 @@ function ServicesPage() {
       {serviceCategories.map((cat, ci) => (
         <Section key={cat.title} className={ci % 2 === 1 ? "!bg-surface" : ""}>
           <div className="mb-12 flex items-center gap-5">
-            <img src={cat.img} alt="" className="h-16 w-auto shrink-0 object-contain" />
+            <div
+              className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl"
+              style={{ background: `color-mix(in oklab, ${cat.bg} 18%, white)` }}
+            >
+              <cat.Icon className="h-8 w-8" style={{ color: cat.bg }} strokeWidth={2.2} />
+            </div>
             <div>
               <h2 className="text-2xl font-bold text-foreground md:text-3xl">{cat.title}</h2>
               <p className="text-muted-foreground">{cat.desc}</p>
