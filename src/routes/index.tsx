@@ -156,8 +156,8 @@ function HomePage() {
               className="glass-card-hover p-8"
             >
               <div
-                className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl shadow-[0_10px_25px_-8px_var(--tw-shadow-color)]"
-                style={{ background: s.bg, color: "white" }}
+                className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl"
+                style={{ background: s.bg, color: "white", boxShadow: `0 10px 25px -8px ${s.bg}` }}
               >
                 <s.Icon className="h-7 w-7" strokeWidth={2.2} />
               </div>
