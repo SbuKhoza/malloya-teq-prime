@@ -1,12 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { Globe, Zap, Cloud, Palette, ShoppingBag, type LucideIcon } from "lucide-react";
 import { Section } from "../components/Section";
 import { useContent } from "../lib/use-content";
-import flyerWeb from "../assets/flyer-web.png.asset.json";
-import flyerGears from "../assets/flyer-gears.png.asset.json";
-import flyerCloud from "../assets/flyer-cloud.png.asset.json";
-import flyerDesign from "../assets/flyer-design.png.asset.json";
-import flyerCart from "../assets/flyer-cart.png.asset.json";
 import flyerBulb from "../assets/flyer-bulb.png.asset.json";
 import flyerRocket from "../assets/flyer-rocket.png.asset.json";
 
@@ -24,7 +20,7 @@ export const Route = createFileRoute("/services")({
 
 const serviceCategories = [
   {
-    img: flyerWeb.url,
+    Icon: Globe,
     title: "Website & Mobile App Development",
     desc: "Modern, responsive websites & mobile applications.",
     bg: "oklch(0.62 0.1 195)",
@@ -38,7 +34,7 @@ const serviceCategories = [
     ],
   },
   {
-    img: flyerGears.url,
+    Icon: Zap,
     title: "Automation & Workflow Development",
     desc: "Custom software to automate and streamline your operations.",
     bg: "oklch(0.67 0.16 45)",
@@ -51,7 +47,7 @@ const serviceCategories = [
     ],
   },
   {
-    img: flyerCloud.url,
+    Icon: Cloud,
     title: "Hosting",
     desc: "Everything you need to get and stay online.",
     bg: "oklch(0.52 0.13 305)",
@@ -64,7 +60,7 @@ const serviceCategories = [
     ],
   },
   {
-    img: flyerDesign.url,
+    Icon: Palette,
     title: "UX/UI Design",
     desc: "Clean, modern and user-friendly design.",
     bg: "oklch(0.82 0.13 85)",
@@ -76,7 +72,7 @@ const serviceCategories = [
     ],
   },
   {
-    img: flyerCart.url,
+    Icon: ShoppingBag,
     title: "E-commerce Development",
     desc: "Online stores ready to sell from day one.",
     bg: "oklch(0.62 0.1 195)",
@@ -128,7 +124,12 @@ function ServicesPage() {
       {serviceCategories.map((cat, ci) => (
         <Section key={cat.title} className={ci % 2 === 1 ? "!bg-surface" : ""}>
           <div className="mb-12 flex items-center gap-5">
-            <img src={cat.img} alt="" className="h-16 w-auto shrink-0 object-contain" />
+            <div
+              className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl"
+              style={{ background: `color-mix(in oklab, ${cat.bg} 18%, white)` }}
+            >
+              <cat.Icon className="h-8 w-8" style={{ color: cat.bg }} strokeWidth={2.2} />
+            </div>
             <div>
               <h2 className="text-2xl font-bold text-foreground md:text-3xl">{cat.title}</h2>
               <p className="text-muted-foreground">{cat.desc}</p>
