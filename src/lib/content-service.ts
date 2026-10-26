@@ -16,6 +16,7 @@ import { portfolioItems, type PortfolioItem } from "../data/portfolio";
 import { reviews, type Review } from "../data/reviews";
 
 export interface PageCopy {
+  homeHeroImage?: string;
   homeHeroBadge: string;
   homeHeroTitle: string;
   homeHeroSubtitle: string;

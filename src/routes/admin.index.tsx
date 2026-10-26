@@ -279,9 +279,11 @@ function SectionCard({
 function ScreenshotUploader({
   currentUrl,
   onUploaded,
+  path = "portfolio",
 }: {
   currentUrl: string;
   onUploaded: (url: string) => void;
+  path?: string;
 }) {
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -298,7 +300,7 @@ function ScreenshotUploader({
     setProgress(0);
 
     const storage = getStorage();
-    const storageRef = ref(storage, `portfolio/${Date.now()}-${file.name}`);
+    const storageRef = ref(storage, `${path}/${Date.now()}-${file.name}`);
     const task = uploadBytesResumable(storageRef, file);
 
     task.on(
@@ -627,6 +629,16 @@ function CopyEditor({
         <div className="grid gap-4">
           <Field label="Hero badge">
             <TextInput value={copy.homeHeroBadge} onChange={(e) => set("homeHeroBadge", e.target.value)} />
+          </Field>
+          <Field label="Hero image">
+            <p className="mb-1 text-[11px] text-muted-foreground">
+              Leave empty to use the default Born Ekasi banner. Upload a wide image for best results.
+            </p>
+            <ScreenshotUploader
+              path="hero"
+              currentUrl={copy.homeHeroImage ?? ""}
+              onUploaded={(url) => set("homeHeroImage", url)}
+            />
           </Field>
           <Field label="Hero title">
             <TextInput value={copy.homeHeroTitle} onChange={(e) => set("homeHeroTitle", e.target.value)} />
