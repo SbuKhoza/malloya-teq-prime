@@ -279,9 +279,11 @@ function SectionCard({
 function ScreenshotUploader({
   currentUrl,
   onUploaded,
+  path = "portfolio",
 }: {
   currentUrl: string;
   onUploaded: (url: string) => void;
+  path?: string;
 }) {
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
