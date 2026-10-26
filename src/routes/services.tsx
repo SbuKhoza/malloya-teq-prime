@@ -20,7 +20,7 @@ export const Route = createFileRoute("/services")({
 
 const serviceCategories = [
   {
-    img: flyerWeb.url,
+    Icon: Globe,
     title: "Website & Mobile App Development",
     desc: "Modern, responsive websites & mobile applications.",
     bg: "oklch(0.62 0.1 195)",
