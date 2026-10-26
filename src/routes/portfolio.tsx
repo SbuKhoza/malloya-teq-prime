@@ -55,7 +55,7 @@ function PortfolioPage() {
       </section>
 
       <Section>
-        <div className="grid gap-8 sm:grid-cols-2">
+        <div className="mx-auto grid max-w-4xl gap-6 sm:grid-cols-2">
           {items.map((item, i) => {
             const Icon = projectIcon[item.icon ?? "MapPin"] ?? MapPin;
             const bg = projectColor[item.color ?? "teal"] ?? projectColor.teal;
@@ -78,7 +78,7 @@ function PortfolioPage() {
                     loading="lazy"
                   />
                 </div>
-                <div className="p-8">
+                <div className="p-6">
                   <div className="mb-3 flex flex-wrap items-center gap-3">
                     <div className="icon-blob h-11 w-11 text-white" style={{ background: bg }}>
                       <Icon className="h-5 w-5" strokeWidth={2} />
