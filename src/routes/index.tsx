@@ -6,16 +6,16 @@ import {
   MapPin,
   Wallet,
   LifeBuoy,
+  Globe,
+  Zap,
+  Cloud,
+  Palette,
+  ShoppingBag,
   type LucideIcon,
 } from "lucide-react";
 import { Section, SectionHeader } from "../components/Section";
 import { useContent } from "../lib/use-content";
 import heroBanner from "../assets/malloya-hero-banner.png.asset.json";
-import flyerWeb from "../assets/flyer-web.png.asset.json";
-import flyerGears from "../assets/flyer-gears.png.asset.json";
-import flyerCloud from "../assets/flyer-cloud.png.asset.json";
-import flyerDesign from "../assets/flyer-design.png.asset.json";
-import flyerCart from "../assets/flyer-cart.png.asset.json";
 import flyerRocket from "../assets/flyer-rocket.png.asset.json";
 import flyerBulb from "../assets/flyer-bulb.png.asset.json";
 import flyerGear from "../assets/flyer-gear.png.asset.json";
@@ -35,11 +35,11 @@ export const Route = createFileRoute("/")({
 });
 
 const services = [
-  { img: flyerWeb.url, title: "Website & Mobile App Development", desc: "Modern, responsive websites and apps for Android, iOS and cross-platform." },
-  { img: flyerGears.url, title: "Automation & Workflow Development", desc: "Automations, LMS, booking and inventory systems that save you hours every week." },
-  { img: flyerCloud.url, title: "Hosting", desc: "Fast, secure and reliable hosting — domains, SSL and business emails, sorted." },
-  { img: flyerDesign.url, title: "UX/UI Design", desc: "Clean, modern and user-friendly interfaces designed for real people." },
-  { img: flyerCart.url, title: "E-commerce Development", desc: "Online stores and dropshipping platforms ready to sell from day one." },
+  { Icon: Globe, bg: "oklch(0.62 0.1 195)", title: "Website & Mobile App Development", desc: "Modern, responsive websites and apps for Android, iOS and cross-platform." },
+  { Icon: Zap, bg: "oklch(0.67 0.16 45)", title: "Automation & Workflow Development", desc: "Automations, LMS, booking and inventory systems that save you hours every week." },
+  { Icon: Cloud, bg: "oklch(0.52 0.13 305)", title: "Hosting", desc: "Fast, secure and reliable hosting — domains, SSL and business emails, sorted." },
+  { Icon: Palette, bg: "oklch(0.78 0.13 85)", title: "UX/UI Design", desc: "Clean, modern and user-friendly interfaces designed for real people." },
+  { Icon: ShoppingBag, bg: "oklch(0.62 0.1 195)", title: "E-commerce Development", desc: "Online stores and dropshipping platforms ready to sell from day one." },
 ] as const;
 
 const whyUs = [
@@ -155,8 +155,11 @@ function HomePage() {
               transition={{ delay: i * 0.08, duration: 0.5 }}
               className="glass-card-hover p-8"
             >
-              <div className="mb-4 flex h-20 items-center justify-center">
-                <img src={s.img} alt="" className="h-20 w-auto object-contain" />
+              <div
+                className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl shadow-[0_10px_25px_-8px_var(--tw-shadow-color)]"
+                style={{ background: s.bg, color: "white" }}
+              >
+                <s.Icon className="h-7 w-7" strokeWidth={2.2} />
               </div>
               <h3 className="mb-2 text-lg font-bold text-foreground">{s.title}</h3>
               <p className="text-sm text-muted-foreground">{s.desc}</p>
